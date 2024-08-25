@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>MathEXplained</title>
+        <meta charset="utf-8">
+	<style>
+		*{padding:0; margin: 0; font-weight: normal;}
+	
+		body {
+		background-color: rgb(193, 228, 244);
+		font-size: 20px}
+
+		.title {
+		color : rgb(28, 69, 135);
+		text-align: center;
+		font-family: "georgia", serif;
+		margin: 1em;}
+	
+		.subheadings{
+		text-align: center;
+		font-size:  0.95em;
+		font-family: "georgia", serif;}
+
+		.headings{
+		text-align: center;
+		font-size:  0.99em;
+		font-family: "century gothic", sans-serif;
+		font-weight: bold;
+		margin-bottom: 1px;}
+		
+		.buttons {
+		background-color: white;
+		font-family: "century gothic", sans-serif;
+		font-size: 1em;
+		border-color: gray;
+		border-radius: 5px;
+		width: 150px;
+		height: 50px;
+		transition-duration: 0.4s;
+		margin-left: 5px;
+		margin-right: 5px;
+		margin-top: 1em;
+		margin-bottom: 0.6em;}
+
+		.buttons:hover{
+		background-color: rgb(100, 160, 190);}
+
+		.buttons:active{
+		background-color: rgb(80, 120, 170);}
+
+		.tabContent{
+		display: none;}
+
+		#home{
+		display: block;}
+
+		.image{
+		width: 800px;
+		height: 500px;
+		margin-left: auto;
+		margin-right: auto;}
+		
+		.text{
+		margin-left: 10%;
+		margin-right: 10%;
+		text-align: justify;
+		line-height: 1.5;
+		font-family: "bodoni MT";}
+
+		.links{
+		text-decoration: none;}
+
+		.links:hover{
+		text-decoration: underline;}
+		
+
+		details>summary{
+		padding: 15px;
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;}
+
+		details{
+		background-color: white;
+		border-style: solid;
+		border-width: normal;
+		border-color: gray;
+		border-radius: 5px;
+		margin-left: auto;
+		margin-right: auto;
+		height: 50px;
+		width: 800px;}
+
+
+	</style>
+    </head>
+
+    <body>
+	<div class = "title">
+		<h1>MathEXplained MAGAZINE</h1>
+		<div class = "tabs">
+			<button class = "buttons" onclick = "openTab(event, 'home')"> Current Issue </button>
+			<button class = "buttons" onclick = "openTab(event, 'tab1')"> Past Issues </button>
+			<button class = "buttons" onclick = "openTab(event, 'tab2')"> About Us </button>
+			<button class = "buttons" onclick = "openTab(event, 'tab3')"> Join Us </button>
+		</div>
+
+	</div>
+
+
+	<div>
+		<div id = "home" class = "tabContent">
+			<p class = "headings"> Current Issue </p>
+			<p class = "subheadings"> July 2024 </p>
+			<br>
+			<div class = "image">
+				<img src = "https://drive.google.com/thumbnail?id=1YKGJgtJpPj62HWyOF7PI5oUOARb6nxAW&sz=w800" alt = "magazine">
+
+			</div> 
+		</div>
+
+		<div id = "tab1" class = "tabContent"> 
+			<div>
+			<h1 class = "headings"> Past Issues </h1>
+				<details> <summary> July 2024 </summary> 
+					<div class = "image">
+				<img src = "https://drive.google.com/thumbnail?id=1YKGJgtJpPj62HWyOF7PI5oUOARb6nxAW&sz=w800" alt = "magazine">
+				</div></details>
+			</div>
+		</div>
+
+		<div id = "tab2" class = "tabContent">
+			<h1 class = "headings"> About Us </h1>
+			<p class = "text"><b>M</b>ath<b>EX</b>plained <b>MAGAZINE</b> aims to be a monthly newsletter that publishes articles in a newspaper-style format about various math related subjects in a way which can appeal to a broader audience. Topics may range from trending news stories within the math community to in-depth dissections of niche and interesting mathematical topics for more advanced readers. </p>
+
+			<h1 class = "headings">Our Goal</h1>
+
+			<p class = "text">While many of us on this platform might feel as if math is something super familiar to us, the truth is that this isn't the case outside of our tightly-knit community. Math doesn't get much coverage in mainstream media due to it being wrongfully seen by the general population either as a nerd's hobby or extremely foreign to the average person. Our mission as an organization is to promote mathematics through recognizing top mathletes, covering interesting math topics, and painting mathematics as something which can be fun and easy to get into. </p>
+		</div>
+
+		<div id = "tab3" class = "tabContent">
+			<p class = "headings"> Join Us! </p>
+			<p class = "text"> Join our discord <a href = "https://discord.com/invite/Fnhwbzfpfz" target = "_blank" class = "links"> here! </a>  </p>
+
+			<br>
+			<p class = "text"> Apply to be a staff member <a href = "https://docs.google.com/forms/d/e/1FAIpQLSde9eR4UJXXm39MRJz1KDsjcta8wj2Fu6yVJPZ4WfLS2UDPKQ/viewform?usp=send_form" target = "_blank" class = "links"> here! </a> </p>
+		</div>
+
+	</div>
+	
+    </body>
+
+    <script>
+	function openTab(evt, tabName) {
+    		var i, tabcontent;
+    		tabcontent = document.getElementsByClassName("tabContent");
+    
+    		for (i = 0; i < tabcontent.length; i++) {
+        		tabcontent[i].style.display = "none";
+    		}
+    
+    		document.getElementById(tabName).style.display = "block";
+	}
+
+    </script>	
+
+</html>
