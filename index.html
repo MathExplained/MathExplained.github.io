@@ -8,30 +8,44 @@
 	<style>
 		.navbar {
   display: flex;
-  justify-content: center;
-  background-color: rgb(193, 228, 244);
-  padding: 0.5em 0;
-  gap: 1em;
-border-bottom: 2px solid black;			
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 2em;
+  border-bottom: 2px solid black;
+  background-color: white;
+}
+
+.nav-left .site-title {
+  font-size: 1.6em;
+  font-family: "Century Gothic", sans-serif;
+  font-weight: bold;
+  color: black;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.8em;
 }
 
 .navlink {
   color: black;
   text-decoration: none;
-  padding: 0.6em 1.2em;
   font-family: "Century Gothic", sans-serif;
   font-size: 1em;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  cursor: pointer;
+  position: relative;
 }
 
 .navlink:hover {
-  background-color: #64a0be;
+  text-decoration: underline;
 }
 
-.navlink:active {
-  background-color: #5078aa;
+.navlink.active::after {
+  content: "";
+  display: block;
+  margin-top: 4px;
+  height: 2px;
+  background-color: black;
 }
 		*{padding:0; margin: 0; font-weight: normal;}
 	
@@ -126,12 +140,19 @@ border-bottom: 2px solid black;
     <body>
 	<div class = "title">
 		<h1>MathEXplained MAGAZINE</h1>
-		<nav class="navbar">
-  <a class="navlink" onclick="openTab(event, 'home')">Current Issue</a>
-  <a class="navlink" onclick="openTab(event, 'tab1')">Past Issues</a>
-  <a class="navlink" onclick="openTab(event, 'tab2')">About Us</a>
-  <a class="navlink" onclick="openTab(event, 'tab3')">Join Us</a>
-</nav>
+		<header class="navbar">
+  <div class="nav-left">
+    <span class="site-title">MathEXplained</span>
+  </div>
+  <nav class="nav-right">
+    <a href="#" class="navlink">Home</a>
+    <a href="#" class="navlink">About</a>
+    <a href="#" class="navlink">Issues</a>
+    <a href="#" class="navlink active">Current Issue</a>
+    <a href="#" class="navlink">Join Us</a>
+    <a href="#" class="navlink">Contact</a>
+  </nav>
+</header>
 
 	</div>
 
