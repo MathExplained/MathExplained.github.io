@@ -6,12 +6,19 @@
 	<link rel = "icon" type="image/x-icon" href = "https://drive.google.com/thumbnail?id=1IGYt1AjrhR7Hj6QO7P_alsmpgS45VKaM&sz=w800">
         <meta charset="utf-8">
 	<style>
-.navbar {
+.headerbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1em 2em;
   border-bottom: 2px solid black;			
+  background-color: rgb(193, 228, 244);
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 2em;
   background-color: rgb(193, 228, 244);
 }
 
@@ -138,20 +145,19 @@
 
     <body>
 	<div class = "title">
-		<header class="navbar">
-  <div class="nav-left">
-    <span class="site-title">MathEXplained</span>
-  </div>
-  <nav class="nav-right">
-<div class="navbar">
-  <a class="navlink" onclick="openTab(event, 'home')" href="javascript:void(0)">Current Issue</a>&nbsp;&nbsp;
-  <a class="navlink" onclick="openTab(event, 'tab1')" href="javascript:void(0)">Past Issues</a>&nbsp;&nbsp;
-  <a class="navlink" onclick="openTab(event, 'tab2')" href="javascript:void(0)">About Us</a>&nbsp;&nbsp;
-  <a class="navlink" onclick="openTab(event, 'tab3')" href="javascript:void(0)">Join Us</a>
-</div>
-  </nav>
-</header>
-
+		<header class="headerbar">
+		  <div class="nav-left">
+		    <span class="site-title">MathEXplained</span>
+		  </div>
+		  <nav class="nav-right">
+		<div class="navbar">
+		  <a class="navlink" onclick="openTab(event, 'home')" href="javascript:void(0)">Current Issue</a>&nbsp;&nbsp;
+		  <a class="navlink" onclick="openTab(event, 'tab1')" href="javascript:void(0)">Past Issues</a>&nbsp;&nbsp;
+		  <a class="navlink" onclick="openTab(event, 'tab2')" href="javascript:void(0)">About Us</a>&nbsp;&nbsp;
+		  <a class="navlink" onclick="openTab(event, 'tab3')" href="javascript:void(0)">Join Us</a>
+		</div>
+		  </nav>
+		</header>
 	</div>
 
 
