@@ -62,7 +62,59 @@
 		body {
 		background-color: rgb(193, 228, 244);
 		font-size: 20px}
+		.article {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+      align-items: flex-start;
+    }
 
+    .article img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .article-content {
+      flex: 1;
+      padding: 1rem 2rem;
+      max-width: 600px;
+    }
+
+    .date {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+    }
+
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .description {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: #444;
+    }
+
+    .read-more {
+      text-decoration: none;
+      color: #c08b8b;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .article {
+        flex-direction: column;
+      }
+
+      .article-content {
+        padding: 1rem 0;
+      }
+    }
 		.title {
 		color : rgb(28, 69, 135);
 		text-align: center;
@@ -198,7 +250,18 @@
 
 		<div id = "tab1" class = "tabContent"> 
 			<h1 class = "headings"> Past Issues </h1>
-
+			 <div class="article">
+    <img src="https://drive.google.com/thumbnail?id=1WQYcHiOs6z0RqTV1_1AwAkOOFZdGs9Ly" alt="LCHS Chapter Math Night">
+    <div class="article-content">
+      <div class="date">6/7/24</div>
+      <div class="title">LCHS Chapter Hosts Math Night at Paradise Canyon Elementary</div>
+      <div class="description">
+        Omid for Girls’ LCHS chapter hosted a math night event at Paradise Canyon Elementary to
+        fundraise for the Afghan girls’ internet costs.
+      </div>
+      <a href="#" class="read-more">Read More</a>
+    </div>
+  </div>
 			<div><details> <summary> March 2025 </summary> 
 				<div class = "image">
 				<img src = "https://drive.google.com/thumbnail?id=13JOtB7ph3kcDX9HhlyXbSlOB4M7zaK8P&sz=w1000" alt = "March 2025 Cover" width = 800>
