@@ -14,6 +14,20 @@
   border-bottom: 2px solid black;			
   background-color: rgb(193, 228, 244);
 }
+.flex-container {
+  display: flex;
+  flex-direction: row;   
+  gap: 20px;             
+}
+
+.flex-item {
+  flex: 1;              
+  padding: 10px;
+  border: 1px solid #ccc; 
+}		
+.thumbnail {
+  width: 25vw
+}
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -400,7 +414,14 @@
 
 		</div>
 	    <div id = "tab4" class = "tabContent">
-			
+			<div class="flex-container">
+  <div class="flex-item">
+    <img src="https://drive.google.com/thumbnail?id=1cJgEeIB-R-BWsChajt34l78c5Vy7Mu-k" alt="Example image" class="flex-img">
+  </div>
+  <div class="flex-item">
+    <p>insert short description about issue</p>
+  </div>
+</div>
 			
 
 		</div>
