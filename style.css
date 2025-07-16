@@ -1,0 +1,161 @@
+/* global styles */
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  background-color: rgb(193, 228, 244);
+  color: #000;
+}
+
+/* figure captions (index.html) */
+figure figcaption {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+/* headers/navigation bar */
+header,
+.headerbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 2em;
+  background-color: rgb(193, 228, 244);
+  border-bottom: 2px solid black;
+}
+
+.site-title {
+  font-size: 2em;
+  font-family: "Times New Roman", serif;
+  color: rgb(28, 69, 135);
+}
+
+/* nav links */
+nav a,
+.nav-right a {
+  margin-left: 1em;
+  text-decoration: none;
+  color: black;
+  font-family: "Times New Roman", serif;
+  font-size: 1em;
+}
+
+nav a:hover,
+.nav-right a:hover {
+  text-decoration: underline;
+}
+
+/* grid layout (index.html) */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2em;
+  padding: 2em;
+}
+
+/* release cards (index.html) */
+.release-card {
+  background-color: white;
+  padding: 1em;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.release-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.release-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.release-card .releasetitle {
+  font-size: 1.5em;
+  color: rgb(28, 69, 135);
+  margin-top: 0.5em;
+}
+
+.release-card .releasedescription {
+  margin-top: 0.5em;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+.release-card a {
+  display: inline-block;
+  margin-top: 0.5em;
+  color: blue;
+  text-decoration: underline;
+}
+
+/* discord icon */
+.discord-icon {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  transition: transform 0.2s ease;
+}
+
+.discord-icon:hover {
+  transform: scale(1.2);
+}
+
+/* apply/about containers */
+.container {
+  max-width: 900px;
+  margin: 2em auto;
+  background-color: white;
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+main.container p {
+  text-align: justify;
+}
+
+/* headings*/
+h1 {
+  color: rgb(28, 69, 135);
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+h2 {
+  margin-top: 2em;
+  color: rgb(28, 69, 135);
+  text-align: center;
+}
+
+/* about us page */
+.center-image {
+  display: block;
+  margin: 2em auto;
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* back link */
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 2em;
+  color: rgb(28, 69, 135);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* embed google form */
+.form-wrapper iframe {
+  width: 100%;
+  max-width: 800px;
+  height: 2400px;
+  border: none;
+}
