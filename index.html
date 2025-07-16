@@ -1,571 +1,234 @@
-<!DOCTYPE HTML>
-
+<!DOCTYPE html>
 <html>
-    <head>
+<head>
+  <meta charset="UTF-8">
+  <title>Past Releases - MathEXplained</title>
+  <link rel="icon" href="https://drive.google.com/thumbnail?id=1IGYt1AjrhR7Hj6QO7P_alsmpgS45VKaM&sz=w800" type="image/x-icon">
+  	<style>
 	
-	<link rel = "icon" type="image/x-icon" href = "https://drive.google.com/thumbnail?id=1IGYt1AjrhR7Hj6QO7P_alsmpgS45VKaM&sz=w800">
-        <meta charset="utf-8">
-	<style>
-	figure {
-	}	
 	figure figcaption {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 1.5em;
     	text-align: center;
 	}
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100vw
-}
-.headerbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1em 2em;
-  border-bottom: 2px solid black;			
-  background-color: rgb(193, 228, 244);
-}
-.releasetitle
-{
-	font-size: 4em;
-  font-family: "Times New Roman", sans-serif;
-	text-align: left;
-}
-.releasedescription
-{
-	font-size: 1em;
-	font-family: "Times New Roman", sans-serif;
-	text-align: left;
-}
-.item-1 {
-  margin-left: 1em;
-  width: 30vw;
-}
-.item-2 {
-  flex: 1;
-}
-.image-left {
-	text-align: center;
-	width: 50vw;
-}
-.image-right {
-	text-align: center;
-	width: 50vw;
-	flex: 1;
-}
-.image-container{
-	display: flex;
-	flex-direction: row;
-}
-.flex-container {
-  display: flex;
-  flex-direction: row;   
-  gap: 100px;             
-}
+  
+    body {
+      font-family: Georgia, serif;
+      background-color: rgb(193, 228, 244);
+      color: #000;
+    }
 
-.flex-item-image {
-  flex: 1;              
-  padding: 10px;
-  border: 1px solid #ccc; 
-}
-		
-.thumbnail {
-  width: 30vw
-}
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0em;
-  background-color: rgb(193, 228, 244);
-	.logo {
-  width: 50px;
-  height: 50px;
-}
-}
+    .headerbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1em 2em;
+      border-bottom: 2px solid black;
+      background-color: rgb(193, 228, 244);
+    }
 
-.nav-left .site-title {
-  font-size: 1.6em;
-  font-family: "Times New Roman", sans-serif;
-  color: rgb(28, 69, 135);
-}
+    .site-title {
+      font-size: 2em;
+      font-family: "Times New Roman", serif;
+      color: rgb(28, 69, 135);
+    }
 
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 1.8em;
-}
+    .nav-right a {
+      text-decoration: none;
+      color: black;
+      margin-left: 1em;
+      font-family: "Times New Roman", serif;
+      font-size: 1em;
+    }
 
-.navlink {
-  color: black;
-  text-decoration: none;
-  font-family: "Times New Roman", sans-serif;
-  font-size: 1em;
-  position: relative;
-}
+    .nav-right a:hover {
+      text-decoration: underline;
+    }
 
-.navlink:hover {
-  text-decoration: underline;
-}
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2em;
+      padding: 2em;
+    }
 
-.navlink.active::after {
-  content: "";
-  display: block;
-  margin-top: 4px;
-  height: 2px;
-  background-color: black;
-}
-		*{padding:0; margin: 0; font-weight: normal;}
-	
-		body {
-		background-color: rgb(193, 228, 244);
-		font-size: 20px}
+    .release-card {
+      background-color: white;
+      padding: 1em;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-		.title {
-		color : rgb(28, 69, 135);
-		text-align: center;
-		font-family: "georgia", serif;
-		margin: 1em;}
-	
-		.subheadings{
-		text-align: center;
-		font-size:  0.95em;
-		font-family: "georgia", serif;}
+    .release-card img {
+      width: 100%;
+      border-radius: 8px;
+    }
 
-		.headings{
-		text-align: center;
-		font-size:  2em;
-		font-family: "century gothic", sans-serif;
-		font-weight: bold;
-		margin-bottom: 1px;}
-		
-		.buttons {
-		background-color: white;
-		font-family: "century gothic", sans-serif;
-		color: black;
-		font-size: 1em;
-		border-color: gray;
-		border-radius: 5px;
-		width: 150px;
-		height: 50px;
-		transition-duration: 0.4s;
-		margin-left: 5px;
-		margin-right: 5px;
-		margin-top: 1em;
-		margin-bottom: 0.6em;}
+    .release-card .releasetitle {
+      font-size: 1.5em;
+      color: rgb(28, 69, 135);
+      margin-top: 0.5em;
+    }
 
-		.buttons:hover{
-		background-color: rgb(100, 160, 190);}
+    .release-card .releasedescription {
+      margin-top: 0.5em;
+      font-size: 1em;
+      line-height: 1.4;
+    }
 
-		.buttons:active{
-		background-color: rgb(80, 120, 170);}
+    .release-card a {
+      display: inline-block;
+      margin-top: 0.5em;
+      color: blue;
+      text-decoration: underline;
+    }
 
-		.tabContent{
-		display: none;}
+  .discord-icon {
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+    transition: transform 0.2s ease;
+  }
 
-		#home{
-		display: block;}
+  .discord-icon:hover {
+    transform: scale(1.2);
+  }
 
-		.image{
-		width: 800px;
-		margin-left: auto;
-		margin-right: auto;}
-		
-		.text{
-		margin-left: 10%;
-		margin-right: 10%;
-		text-align: justify;
-		line-height: 1.5;
-		font-family: "bodoni MT";}
+  </style>
+</head>
+<body>
+  <header class="headerbar">
+    <div class="site-title">MathEXplained</div>
+    <nav class="nav-right">
+      <a href="index.html">Past Releases</a>
+      <a href="about_us.html">About Us</a>
+      <a href="apply.html">Apply!</a>
+      <a href="https://discord.com/invite/Fnhwbzfpfz" target="_blank" class="navlink"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Join us on Discord" class="discord-icon"></a>
+    </nav>
+  </header>
 
-		.links{
-		text-decoration: none;}
+  <div class="grid-container">
 
-		.links:hover{
-		text-decoration: underline;}
-		
-
-		details>summary{
-		padding: 15px;
-		text-align: center;
-		margin-left: auto;
-		margin-right: auto;}
-
-		details{
-		background-color: white;
-		border-style: solid;
-		border-width: normal;
-		border-color: gray;
-		border-radius: 5px;
-		margin-left: auto;
-		margin-right: auto;
-		width: 800px;}
-		#googleForm {
-  text-align: center;
-}
-
-	</style>
-    </head>
-
-    <body>
-	<div class = "title">
-		<header class="headerbar">
-		  <div class="nav-left">
-		    <span class="site-title">MathEXplained</span>
-		  </div>
-		  <nav class="nav-right">
-		<div class="navbar">
-		  <a class="navlink" onclick="openTab(event, 'home')" href="javascript:void(0)">Past Releases</a>&nbsp;&nbsp;&nbsp;&nbsp;
-		  <a class="navlink" onclick="openTab(event, 'tab1')" href="javascript:void(0)">About Us</a>&nbsp;&nbsp;&nbsp;&nbsp;
-		  <a class="navlink" onclick="openTab(event, 'tab2')" href="javascript:void(0)">Apply</a>&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="https://tinyurl.com/MEXplained">
-        <img class="logo" src="https://drive.google.com/thumbnail?id=1rtwxuujzlctIk7q_pSzw_d5PyG9-7U35" style=”width: 50px; height: 50px;”>
-        </a>
-		</div>
-		  </nav>
-		</header>
-	</div>
-
-
-	<div>
-		<div id = "home" class = "tabContent">
-			<div class="flex-container">
-  <div class="flex-item item-1">
-    <img src="https://drive.google.com/thumbnail?id=1zAgm_q3seq2-ghI_9i8Xpr284opRUBD4" alt="Example image" class="thumbnail">
-  </div>
-  <div class="flex-item item-2">
-	<div class="releasetitle">  
-		June 2025 Release
-	</div>
-	<div class="releasedescription">   
-	<br>
-        <p>1. Primality Tests</p>
-	<br>
-	<p>2. Simpson's Paradox</p>
-	<br>
-	<p>3. Approximations</p>
-	<br>
-	<a href = "https://drive.google.com/file/d/1ztgh3XosO3c1n4GgHqIYHIRqG3fjY2pF/view?usp=sharing">read here!</a>
-	</div> 
-  </div>
-</div>
-<br>
-<hr>
-<br>
-			<div class="flex-container">
-  <div class="flex-item item-1">
-    <img src="https://drive.google.com/thumbnail?id=17mBrvl6y1_GM4tCkdCvO9USB067HstBE" alt="Example image" class="thumbnail">
-  </div>
-  <div class="flex-item item-2">
-	<div class="releasetitle">  
-		May 2025 Release
-	</div>
-	<div class="releasedescription">   
-	<br>
+    <article class="release-card">
+      <img src="https://drive.google.com/thumbnail?id=17mBrvl6y1_GM4tCkdCvO9USB067HstBE" alt="May 2025 Cover">
+      <div class="releasetitle"><a href="https://drive.google.com/file/d/1K1M49R19Rjcj4t_01hOIZwOJVVrHdHpP/view?usp=sharing">May 2025 Release</a></div>
+      <div class="releasedescription">
         <p>1. Sports Betting</p>
-	<br>
-	<p>2. Birthday Paradox</p>
-	<br>
-	<p>3. May Mathematicians</p>
-	<br>
-	<p>4. Ulam Spiral</p>
-	<br>
-	<p>5. The Cubic Formula’s Surprising Past</p>
-	<br>
-	<a href = "https://drive.google.com/file/d/1K1M49R19Rjcj4t_01hOIZwOJVVrHdHpP/view?usp=sharing">read here!</a>
-	</div> 
-  </div>
-</div>
-<br>
-<hr>
-<br>
-			<div class="flex-container">
-  <div class="flex-item item-1">
-    <img src="https://drive.google.com/thumbnail?id=1cJgEeIB-R-BWsChajt34l78c5Vy7Mu-k" alt="Example image" class="thumbnail">
-  </div>
-  <div class="flex-item item-2">
-	<div class="releasetitle">  
-		April 2025 Release
-	</div>
-	<div class="releasedescription">   
-	<br>
-          <p>1. Fibonacci in Nature</p>
-	<br>
-	<p>2. Math in Nature: Fractals</p>
-	<br>
-	<p>3. Deriving Trigonometry Values with a Stick</p>
-	<br>
-	<p>4. Spring Math Crossword</p>
-	<br>
-	<a href = "https://drive.google.com/file/d/16vb-fqvkEu_qpHceTKaY67eWal4Fnh3D/view?usp=sharing">read here!</a>
-	</div> 
-  </div>
-</div>
-<br>
-<hr>
-<br>
-<div class="flex-container">
-  <div class="flex-item item-1">
-    <img src="https://drive.google.com/thumbnail?id=1ffvyRQN2flN637MVGkN0irXAWa1x__xK" alt="Example image" class="thumbnail">
-  </div>
-  <div class="flex-item item-2">
-	<div class="releasetitle">  
-		March 2025 Release
-	</div>
-	<div class="releasedescription"> 
-	<br>
-          <p>1. Exploring π's Legacy Through the Ages</p>
-	<br>
-	<p>2. π and Philly Cheesesteak: Buffon's Needle Problem</p>
-	<br>
-	<p>3. Mathematical Beauties within Chess</p>
-	<br>
-	<p>4. Pi Day Math Crossword</p>
-	<br>
-	<a href = "https://drive.google.com/file/d/1I4mZlhtHcc3L_Gt6j0u99lYECDq1qJG-/view?usp=sharing">read here!</a>
-	</div> 
-  </div>
-</div>	
-<br>
-<hr>
-<br>
-<div class="flex-container">
-  <div class="flex-item item-1">
-    <img src="https://drive.google.com/thumbnail?id=1hcTc7oJuT26R1VRx8RIG42Oi4ZWRphRy" alt="Example image" class="thumbnail">
-  </div>
-  <div class="flex-item item-2">
-	<div class="releasetitle">  
-		February 2025 Release
-	</div>
-	<div class="releasedescription"> 
-	<br>
-          <p>1. Is Punxsutawney Phil Actually a Fraud?</p>
-	<br>
-	<p>2. Discovering Nostalgia in Mathematics</p>
-	<br>
-	<p>3. Math Pick-up Lines</p>
-	<br>
-	<a href = "https://drive.google.com/file/d/1PDb5bQEt-2uaNRzhVN0enNLxndt_Zl3r/view?usp=sharing">read here!</a>
-	</div> 
-  </div>
-</div>
-<br>
-<hr>
-<br>
-<div class="flex-container">
-  <div class="flex-item item-1">
-    <img src="https://drive.google.com/thumbnail?id=125FBr1CdDa16cjJ1dnRNnDofoSqTQDyt" alt="Example image" class="thumbnail">
-  </div>
-  <div class="flex-item item-2">
-	<div class="releasetitle">  
-		January 2025 Release
-	</div>
-	<div class="releasedescription"> 
-	<br>
-          <p>1. Math’s Most Beautiful Equation Explained</p>
-	<br>
-	<p>2. 2025 - a Year of Interesting Properties</p>
-	<br>
-	<p>3. New Year's Math Crossword</p>
-	<br>
-	<a href = "https://drive.google.com/file/d/1mr3On7OeMTaFnH-aTaDxXC5HHxwhgA2e/view?usp=sharing">read here!</a>
-	</div> 
-  </div>
-</div>
-<br>
-<hr>
-<br>
-<div class="flex-container">
-  <div class="flex-item item-1">
-    <img src="https://drive.google.com/thumbnail?id=10dNQHDzRFMX2IramuNTcFmythmnL3qRD" alt="Example image" class="thumbnail">
-  </div>
-  <div class="flex-item item-2">
-	<div class="releasetitle">  
-		December 2024 Release
-	</div>
-	<div class="releasedescription"> 
-	<br>
-          <p>1. Monte Carlo Fallacy - the Death of Inexperienced Gamblers</p>
-	<br>
-	<p>2. Book Review - A Manga Guide to Calculus</p>
-	<br>
-	<p>3. Christmas Math Crossword</p>
-	<br>
-	<a href = "https://drive.google.com/file/d/1ecx7rgrrJ_E86uqZ7yc7PGkeJtClJbda/view?usp=sharing">read here!</a>
-	</div> 
-  </div>
-</div>
-<br>
-<hr>
-<br>
-<div class="flex-container">
-  <div class="flex-item item-1">
-    <img src="https://drive.google.com/thumbnail?id=1XR0gJ5oYh6hu1fZ2Ss0C-W4y2yYHnIT5" alt="Example image" class="thumbnail">
-  </div>
-  <div class="flex-item item-2">
-	<div class="releasetitle">  
-		November 2024 Release
-	</div>
-	<div class="releasedescription"> 
-	<br>
+        <p>2. Birthday Paradox</p>
+        <p>3. May Mathematicians</p>
+        <p>4. Ulam Spiral</p>
+        <p>5. The Cubic Formula's Surprising Past</p>
+      </div>
+    </article>
+
+    <article class="release-card">
+      <img src="https://drive.google.com/thumbnail?id=1cJgEeIB-R-BWsChajt34l78c5Vy7Mu-k" alt="April 2025 Cover">
+      <div class="releasetitle"><a href="https://drive.google.com/file/d/16vb-fqvkEu_qpHceTKaY67eWal4Fnh3D/view?usp=sharing">April 2025 Release</a></div>
+      <div class="releasedescription">
+        <p>1. Fibonacci in Nature</p>
+        <p>2. Math in Nature: Fractals</p>
+        <p>3. Deriving Trigonometry Values with a Stick</p>
+        <p>4. Spring Math Crossword</p>
+      </div>
+    </article>
+
+    <article class="release-card">
+      <img src="https://drive.google.com/thumbnail?id=1ffvyRQN2flN637MVGkN0irXAWa1x__xK" alt="March 2025 Cover">
+      <div class="releasetitle"><a href="https://drive.google.com/file/d/1I4mZlhtHcc3L_Gt6j0u99lYECDq1qJG-/view?usp=sharing">March 2025 Release</a></div>
+      <div class="releasedescription">
+        <p>1. Exploring π's Legacy Through the Ages</p>
+        <p>2. π and Philly Cheesesteak</p>
+        <p>3. Mathematical Beauties within Chess</p>
+        <p>4. Pi Day Math Crossword</p>
+      </div>
+    </article>
+
+    <article class="release-card">
+      <img src="https://drive.google.com/thumbnail?id=1hcTc7oJuT26R1VRx8RIG42Oi4ZWRphRy" alt="February 2025 Cover">
+      <div class="releasetitle"><a href="https://drive.google.com/file/d/1PDb5bQEt-2uaNRzhVN0enNLxndt_Zl3r/view?usp=sharing">February 2025 Release</a></div>
+      <div class="releasedescription">
+        <p>1. Is Punxsutawney Phil Actually a Fraud?</p>
+        <p>2. Discovering Nostalgia in Mathematics</p>
+        <p>3. Math Pick-up Lines</p>
+      </div>
+    </article>
+
+    <article class="release-card">
+      <img src="https://drive.google.com/thumbnail?id=125FBr1CdDa16cjJ1dnRNnDofoSqTQDyt" alt="January 2025 Cover">
+      <div class="releasetitle"><a href="https://drive.google.com/file/d/1mr3On7OeMTaFnH-aTaDxXC5HHxwhgA2e/view?usp=sharing">January 2025 Release</a></div>
+      <div class="releasedescription">
+        <p>1. Math's Most Beautiful Equation Explained</p>
+        <p>2. 2025 - a Year of Interesting Properties</p>
+        <p>3. New Year's Math Crossword</p>
+      </div>
+    </article>
+
+    <article class="release-card">
+      <img src="https://drive.google.com/thumbnail?id=10dNQHDzRFMX2IramuNTcFmythmnL3qRD" alt="December 2024 Cover">
+      <div class="releasetitle"><a href="https://drive.google.com/file/d/1ecx7rgrrJ_E86uqZ7yc7PGkeJtClJbda/view?usp=sharing">December 2024 Release</a></div>
+      <div class="releasedescription">
+        <p>1. Monte Carlo Fallacy - the Death of Inexperienced Gamblers</p>
+        <p>2. Book Review - A Manga Guide to Calculus</p>
+        <p>3. Christmas Math Crossword</p>
+      </div>
+    </article>
+
+    <article class="release-card">
+      <img src="https://drive.google.com/thumbnail?id=1XR0gJ5oYh6hu1fZ2Ss0C-W4y2yYHnIT5" alt="November 2024 Cover">
+      <div class="releasetitle"><a href="https://drive.google.com/file/d/1T89HK8i8vs2fWdYSIvemgKy4U3JEXepZ/view?usp=sharing">November 2024 Release</a></div>
+      <div class="releasedescription">
         <p>1. Voting Theory: the Impossibility of Perfection</p>
-	<br>
-	<p>2. Mathematical History: November Edition</p>
-	<br>
-	<p>3. Nim: The Most Complex Simple Game</p>
-	<br>
-	<p>4. BMT 2024 – the in-Person Experience</p>
-	<br>
-	<p>5. Thanksgiving Math Crossword</p>
-	<br>
-	<a href = "https://drive.google.com/file/d/1T89HK8i8vs2fWdYSIvemgKy4U3JEXepZ/view?usp=sharing">read here!</a>
-	</div> 
-  </div>
-</div>
-<br>
-<hr>
-<br>
-<div class="flex-container">
-  <div class="flex-item item-1">
-    <img src="https://drive.google.com/thumbnail?id=1kzXW82a6VrkuVCLPNTP4AwP5yir8kf-3" alt="Example image" class="thumbnail">
-  </div>
-  <div class="flex-item item-2">
-	<div class="releasetitle">  
-		October 2024 Release
-	</div>
-	<div class="releasedescription"> 
-	<br>
+        <p>2. Mathematical History: November Edition</p>
+        <p>3. Nim: The Most Complex Simple Game</p>
+        <p>4. BMT 2024 - the in-Person Experience</p>
+        <p>5. Thanksgiving Math Crossword</p>
+      </div>
+    </article>
+
+    <article class="release-card">
+      <img src="https://drive.google.com/thumbnail?id=1kzXW82a6VrkuVCLPNTP4AwP5yir8kf-3" alt="October 2024 Cover">
+      <div class="releasetitle"><a href="https://drive.google.com/file/d/17pZcgOOLXz3JYWEXyGVhSrnd_MITgNiZ/view?usp=sharing">October 2024 Release</a></div>
+      <div class="releasedescription">
         <p>1. Achieving Musical Harmony with Math</p>
-	<br>
-	<p>2. Largest Prime Number Discovered</p>
-	<br>
-	<p>3. The Math Behind Origami</p>
-	<br>
-	<p>4. The Culmination of Art and Math: A Golden Connection</p>
-	<br>
-	<p>5. Halloween Math Crossword</p>
-	<br>
-	<a href = "https://drive.google.com/file/d/17pZcgOOLXz3JYWEXyGVhSrnd_MITgNiZ/view?usp=sharing">read here!</a>
-	</div> 
-  </div>
-</div>
-<br>
-<hr>
-<br>
-<div class="flex-container">
-  <div class="flex-item item-1">
-    <img src="https://drive.google.com/thumbnail?id=1SP4JcGakwKt86FOhcNrMuknyW4G5f2ZJ" alt="Example image" class="thumbnail">
-  </div>
-  <div class="flex-item item-2">
-	<div class="releasetitle">  
-		September 2024 Release
-	</div>
-	<div class="releasedescription"> 
-	<br>
+        <p>2. Largest Prime Number Discovered</p>
+        <p>3. The Math Behind Origami</p>
+        <p>4. The Culmination of Art and Math: A Golden Connection</p>
+        <p>5. Halloween Math Crossword</p>
+      </div>
+    </article>
+
+    <article class="release-card">
+      <img src="https://drive.google.com/thumbnail?id=1SP4JcGakwKt86FOhcNrMuknyW4G5f2ZJ" alt="September 2024 Cover">
+      <div class="releasetitle"><a href="https://drive.google.com/file/d/1YuIAVMfM54ytgCSygmJ9UbNIK9RVl1iC/view?usp=sharing">September 2024 Release</a></div>
+      <div class="releasedescription">
         <p>1. Notice Deceptive Statistics</p>
-	<br>
-	<p>2. How Many Holes Does a Straw Have?</p>
-	<br>
-	<p>3. Surprising Connections Between Probabilistic Theory and Number Theory</p>
-	<br>
-	<p>4. Sperner’s Lemma: Achieving Rental Harmony</p>
-	<br>
-	<a href = "https://drive.google.com/file/d/1YuIAVMfM54ytgCSygmJ9UbNIK9RVl1iC/view?usp=sharing">read here!</a>
-	</div> 
-  </div>
-</div>
-<br>
-<hr>
-<br>
-<div class="flex-container">
-  <div class="flex-item item-1">
-    <img src="https://drive.google.com/thumbnail?id=17JVqHvYglzwrILv7hhmF845-1Z-TEB14" alt="Example image" class="thumbnail">
-  </div>
-  <div class="flex-item item-2">
-	<div class="releasetitle">  
-		August 2024 Release
-	</div>
-	<div class="releasedescription"> 
-	<br>
+        <p>2. How Many Holes Does a Straw Have?</p>
+        <p>3. Surprising Connections Between Probabilistic Theory and Number Theory</p>
+        <p>4. Sperner's Lemma: Achieving Rental Harmony</p>
+      </div>
+    </article>
+
+    <article class="release-card">
+      <img src="https://drive.google.com/thumbnail?id=17JVqHvYglzwrILv7hhmF845-1Z-TEB14" alt="August 2024 Cover">
+      <div class="releasetitle"><a href="https://drive.google.com/file/d/1PlHWW2ES9aaXDm619-TlHhEw0rDN03oK/view?usp=sharing">August 2024 Release</a></div>
+      <div class="releasedescription">
         <p>1. Should I Take Calc AB or Calc BC?</p>
-	<br>
-	<p>2. Pursuing Math into College</p>
-	<br>
-	<p>3. Math and Synesthesia</p>
-	<br>
-	<p>4. APMO 2024 Results Released!</p>
-	<br>
-	<p>5. Is Mathematics an Art Form?</p>
-	<br>
-	<a href = "https://drive.google.com/file/d/1PlHWW2ES9aaXDm619-TlHhEw0rDN03oK/view?usp=sharing">read here!</a>
-	</div> 
-  </div>
-</div>
-<br>
-<hr>
-<br>
-<div class="flex-container">
-  <div class="flex-item item-1">
-    <img src="https://drive.google.com/thumbnail?id=1mhV4qOKYSItIXXnBAZ4RswF3OVRdbJTE" alt="Example image" class="thumbnail">
-  </div>
-  <div class="flex-item item-2">
-	<div class="releasetitle">  
-	July 2024 Release
-	</div>
-	<div class="releasedescription"> 
-	<br>
+        <p>2. Pursuing Math into College</p>
+        <p>3. Math and Synesthesia</p>
+        <p>4. APMO 2024 Results Released!</p>
+        <p>5. Is Mathematics an Art Form?</p>
+      </div>
+    </article>
+
+    <article class="release-card">
+      <img src="https://drive.google.com/thumbnail?id=1mhV4qOKYSItIXXnBAZ4RswF3OVRdbJTE" alt="July 2024 Cover">
+      <div class="releasetitle"><a href="https://drive.google.com/file/d/1dQaIBsus20a6I8nj0YpkUebhAHOth0mm/view?usp=sharing">July 2024 Release</a></div>
+      <div class="releasedescription">
         <p>1. Mathletes From Over 100 Nations Meet For the 65th IMO</p>
-	<br>
-	<p>2. Just Under 100 Days Until the 2024 AMC 10/12</p>
-	<br>
-	<a href = "https://drive.google.com/file/d/1dQaIBsus20a6I8nj0YpkUebhAHOth0mm/view?usp=sharing">read here!</a>
-	</div> 
-  </div>
-</div>
-		</div>
-	</div>
-
-		<div id = "tab1" class = "tabContent"> 
-			
-		<h1 class = "headings"> ABOUT US </h1>
-			<img src="https://i.imgur.com/C59AABk.jpeg" alt="Example image" class="center">
-			<p class = "text"><b>M</b>ath<b>EX</b>plained <b>MAGAZINE</b> aims to be a monthly newsletter that publishes articles in a newspaper-style format about various math related subjects in a way which can appeal to a broader audience. Topics may range from trending news stories within the math community to in-depth dissections of niche and interesting mathematical topics for more advanced readers.</p>
-
-	<br>
-
-			<h1 class = "headings">OUR GOAL</h1>
-			<br>
-
-			<p class = "text">While many of us in the math community might feel as if math is something super familiar to us, the truth is that this isn't the case outside of our tightly-knit community. Math doesn't get much coverage in mainstream media due to it being wrongfully seen by the general population either as a nerd's hobby or extremely foreign to the average person. Our mission as an organization is to promote mathematics through recognizing top mathletes, covering interesting math topics, and painting mathematics as something which can be fun and easy to get into. </p>
-		
-		</div>
-		
-
-		<div id = "tab2" class = "tabContent">
-			<div id="googleForm">
-  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSde9eR4UJXXm39MRJz1KDsjcta8wj2Fu6yVJPZ4WfLS2UDPKQ/viewform?embedded=true" width="640" height="2440" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-</div>
-			</div>
-
-
-		</div>
-	
-    </body>
-
-    <script>
-	function openTab(evt, tabName) {
-    		var i, tabcontent;
-    		tabcontent = document.getElementsByClassName("tabContent");
+        <p>2. Just Under 100 Days Until the 2024 AMC 10/12</p>
+      </div>
+    </article>
     
-    		for (i = 0; i < tabcontent.length; i++) {
-        		tabcontent[i].style.display = "none";
-    		}
-    		document.getElementById(tabName).style.display = "block";
-
-	}
-
-    </script>	
-
+  </div>
+</body>
 </html>
