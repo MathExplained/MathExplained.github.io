@@ -25,7 +25,8 @@ header,
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25em 3em;
+  height: 80px;
+  padding: 0 3em;
   background-color: #d7e4fa;
   border-bottom: 2px solid #1c4587;
   box-shadow: 0 2px 6px rgb(28 69 135 / 0.1);
@@ -40,7 +41,12 @@ header,
   color: #1c4587;
   font-family: 'Georgia', serif;
   letter-spacing: 0.05em;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  transform: translateY(0px); 
 }
+
 
 /* nav links */
 nav a,
@@ -52,6 +58,9 @@ nav a,
   font-size: 1.1rem;
   transition: color 0.3s ease;
   font-family: 'Georgia', serif;
+  display: inline-flex;
+  align-items: center;
+  transform: translateY(-8px);
 }
 
 nav a:hover,
@@ -129,6 +138,9 @@ nav a:hover,
   width: 36px;
   height: 36px;
   transition: transform 0.3s ease;
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateY(11px);
 }
 
 .discord-icon:hover {
