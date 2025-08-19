@@ -97,6 +97,7 @@ nav a:hover,
 .release-card img {
   width: 100%;
   height: auto;
+  aspect-ratio: 1 / 1;
   border-radius: 12px;
   object-fit: cover;
   display: block;
