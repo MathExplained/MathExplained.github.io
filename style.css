@@ -32,6 +32,7 @@ figure figcaption {
 
 header,
 .headerbar {
+  position: sticky;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -43,7 +44,6 @@ header,
   box-shadow: 0 8px 20px var(--shadow);
   backdrop-filter: blur(8px) saturate(120%);
   -webkit-backdrop-filter: blur(8px) saturate(120%);
-  position: sticky;
   top: 16px;
   z-index: 100;
 }
@@ -52,12 +52,12 @@ header,
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 2.25rem;
 }
 
 .nav-links {
   display: flex;
-  gap: 2rem;
+  gap: 2.25rem;
   align-items: center;
 }
 
@@ -184,7 +184,6 @@ nav a:hover,
 }
 .release-card a:hover { text-decoration: underline; }
 
-/* ---------- Container and typography ---------- */
 .container {
   max-width: 900px;
   margin: 3em auto;
@@ -273,4 +272,165 @@ h2 {
   .site-title { font-size: 1.2rem; }
   .nav-links { display: none; }
   .nav-right { gap: 0.5rem; }
+}
+
+/* ---------- Staff Page Styles ---------- */
+.grid-container.staff-grid {
+  /* This changes the minimum card width, allowing 4 to fit on most screens */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.staff-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.40) 100%);
+  padding: 2em 1.5em 1.5em;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 10px 30px var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  backdrop-filter: blur(6px) saturate(110%);
+  -webkit-backdrop-filter: blur(6px) saturate(110%);
+
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  color: #111;
+}
+
+.staff-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 42px var(--shadow-strong);
+  background: linear-gradient(180deg, var(--glass-strong) 0%, rgba(255,255,255,0.45) 100%);
+}
+
+.staff-photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 1.25em;
+  border: 4px solid var(--glass-strong);
+  box-shadow: 0 5px 15px var(--shadow-strong);
+}
+
+.staff-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--blue-700);
+  margin: 0.5em 0 0.25em;
+  line-height: 1.2;
+}
+
+.staff-position {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1.3;
+  text-align: center;
+}
+
+.staff-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+
+  background: rgba(28, 69, 135, 0.4);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.staff-modal:target {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-backdrop-close {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 201;
+  cursor: pointer;
+}
+
+.modal-content {
+  background: linear-gradient(180deg, var(--glass-strong) 0%, rgba(255,255,255,0.7) 100%);
+  padding: 2em 2.5em 1em;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 14px 40px var(--shadow-strong);
+  
+  position: relative;
+  z-index: 202;
+  max-width: 650px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  text-align: center;
+  
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.staff-modal:target .modal-content {
+  transform: scale(1);
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 10px;
+  right: 18px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--blue-600);
+  text-decoration: none;
+  line-height: 1;
+  z-index: 203;
+}
+.modal-close-button:hover {
+  color: var(--accent);
+}
+
+.modal-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0.5em auto 0.5em;
+  border: 5px solid var(--glass-strong);
+  box-shadow: 0 6px 20px var(--shadow-strong);
+}
+
+.modal-name {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--blue-700);
+  margin: 0.25rem auto 0.25em;
+}
+
+.modal-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 0 auto 1.5em;
+}
+
+.modal-content p {
+  font-size: 1.1rem;
+  color: #233248;
+  text-align: justify;
+  line-height: 1.6;
+  margin-bottom: 1.25em;
 }
