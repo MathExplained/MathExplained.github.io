@@ -20,6 +20,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  padding-top: 80px;
 }
 
 figure figcaption {
@@ -32,7 +33,7 @@ figure figcaption {
 
 header,
 .headerbar {
-  position: sticky;
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,7 +45,9 @@ header,
   box-shadow: 0 8px 20px var(--shadow);
   backdrop-filter: blur(8px) saturate(120%);
   -webkit-backdrop-filter: blur(8px) saturate(120%);
-  top: 16px;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
 }
 
@@ -252,8 +255,10 @@ h2 {
 
 /* ---------- Staff Page Styles ---------- */
 .grid-container.staff-grid {
-  /* This changes the minimum card width, allowing 4 to fit on most screens */
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.5em;
 }
 
 .staff-card {
@@ -270,6 +275,9 @@ h2 {
   text-decoration: none;
   text-align: center;
   color: #111;
+
+  width: 280px;
+  aspect-ratio: 1;
 }
 
 .staff-card:hover {
@@ -298,11 +306,19 @@ h2 {
 }
 
 .staff-position {
-  font-size: 1.05rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.staff-position p {
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--accent);
-  line-height: 1.3;
-  text-align: center;
+  margin: 0.1em 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
 }
 
 .staff-modal {
