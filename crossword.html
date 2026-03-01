@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Crossword - MathEXplained</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- MathJax for LaTeX rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+  <header class="headerbar">
+    <div class="site-title">MathEXplained</div>
+    <nav class="nav-right">
+      <a href="index.html">Past Releases</a>
+      <a href="about_us.html">About Us</a>
+      <a href="staff.html">Staff</a>
+      <a href="crossword.html">Crossword</a>
+      <a href="apply.html">APPLY!</a>
+      <a href="https://discord.com/invite/Fnhwbzfpfz" target="_blank" class="navlink">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Join us on Discord"
+          class="discord-icon">
+      </a>
+      <a href="https://www.instagram.com/mathexplainedmagazine" target="_blank" class="navlink">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"
+          alt="Follow us on Instagram" class="instagram-icon">
+      </a>
+    </nav>
+  </header>
+
+  <main class="container" role="main">
+    <div class="puzzle-panel">
+      <h2>MathEXplained Official Crossword Player</h2>
+
+      <div class="controls">
+        <label for="problemSelect" class="sr-only">Select problem set:</label>
+        <select id="problemSelect" aria-label="Select problem set"></select>
+        <button id="checkBtn" type="button">Check</button>
+        <button id="clearBtn" type="button">Clear</button>
+      </div>
+
+      <div class="grid" aria-label="2x2 crossword grid">
+        <div class="cell">
+          <span class="cell-number">1.</span>
+          <input id="c0" inputmode="text" autocomplete="off" aria-label="cell 1">
+        </div>
+        <div class="cell">
+          <span class="cell-number">2.</span>
+          <input id="c1" inputmode="text" autocomplete="off" aria-label="cell 2">
+        </div>
+        <div class="cell">
+          <span class="cell-number">3.</span>
+          <input id="c2" inputmode="text" autocomplete="off" aria-label="cell 3">
+        </div>
+        <div class="cell">
+          <input id="c3" inputmode="text" autocomplete="off" aria-label="cell 4">
+        </div>
+      </div>
+
+      <div class="status" id="statusText" aria-live="polite"></div>
+
+      <div id="solutionBox" class="solution-box" role="region" aria-label="Solutions">
+        <div class="sol-nav">
+          <div style="font-weight:700;color:var(--blue-700)">Solutions</div>
+          <div>
+            <span class="sol-arrows" id="prevSol" title="Previous solution">◀</span>
+            <span class="sol-arrows" id="nextSol" title="Next solution">▶</span>
+          </div>
+        </div>
+        <div id="solutionContent" class="solution-content"></div>
+      </div>
+    </div>
+
+    <aside class="problems-panel">
+      <div class="release-card">
+        <h3 style="margin-top:0; color:var(--blue-700);">Problems</h3>
+        <div id="problemsList"></div>
+      </div>
+    </aside>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 MathEXplained. All rights reserved.</p>
+  </footer>
+
+  <script type="module">
+
+    import { problems } from './crossword_problems.js';
+    let currentProblem = problems[0];
+
+    const problemSelect = document.getElementById('problemSelect');
+    const problemsList = document.getElementById('problemsList');
+    const statusText = document.getElementById('statusText');
+    const solutionBox = document.getElementById('solutionBox');
+    const solutionContent = document.getElementById('solutionContent');
+    const inputs = [0,1,2,3].map(i => document.getElementById('c'+i));
+    const checkBtn = document.getElementById('checkBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const prevSolBtn = document.getElementById('prevSol');
+    const nextSolBtn = document.getElementById('nextSol');
+
+    let current = 0;
+    let solIdx = 0;
+
+    function populateSelect(){
+      problems.forEach((p, idx) => {
+        const o = document.createElement('option');
+        o.value = idx;
+        o.textContent = p.name;
+        problemSelect.appendChild(o);
+      });
+    }
+
+    function loadProblems(){
+      const p = problems[current];
+      problemsList.innerHTML = p.problems.map((html, i) => `<div class="problem">${html}</div>`).join('');
+      // render math
+      if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise();
+      }
+    }
+
+    function clearGrid(){
+      inputs.forEach(inp => inp.value = '');
+      statusText.textContent = '';
+      solutionBox.style.display = 'none';
+    }
+
+    function checkWin(){
+      const p = problems[current];
+      let allFilled = true;
+      let allCorrect = true;
+
+      for (let i=0; i<4; ++i) {
+        const user = (inputs[i].value || '').trim();
+        if (user === '') allFilled = false;
+        if (user !== p.answer[i]) allCorrect = false;
+      }
+
+      if (allCorrect && allFilled) {
+        statusText.textContent = '🎉 You win!';
+        showSolution(0);
+      } else {
+        statusText.textContent = 'Incorrect; keep trying!';
+        solutionBox.style.display = 'none';
+      }
+    }
+
+    /* show solutions (with arrows) */
+    function showSolution(idx){
+      const p = problems[current];
+      solIdx = ((idx % p.solutions.length) + p.solutions.length) % p.solutions.length;
+      solutionContent.innerHTML = p.solutions[solIdx];
+      solutionBox.style.display = 'block';
+      if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
+    }
+
+    /* wire events */
+    problemSelect.addEventListener('change', () => {
+      current = Number(problemSelect.value);
+      loadProblems();
+      clearGrid();
+    });
+
+    checkBtn.addEventListener('click', checkWin);
+    clearBtn.addEventListener('click', clearGrid);
+    nextSolBtn.addEventListener('click', () => showSolution(solIdx + 1));
+    prevSolBtn.addEventListener('click', () => showSolution(solIdx - 1));
+
+    inputs.forEach((inp, i) => {
+    inp.setAttribute('maxlength', '1');
+
+    inp.addEventListener('input', (e) => {
+        // keep only the first alphanumeric char and uppercase it
+        const cleaned = (e.target.value || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0,1);
+        e.target.value = cleaned;
+
+        // auto-advance if cell now has a character
+        if (cleaned) {
+        const nextIndex = (i + 1) % inputs.length;
+        inputs[nextIndex].focus();
+        }
+    });
+
+    // keep keyboard navigation working (arrows + Enter)
+    inp.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+        e.preventDefault();
+        checkWin();
+        } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        inputs[(i+1) % inputs.length].focus();
+        } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        inputs[(i-1+inputs.length) % inputs.length].focus();
+        } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const map = [2,3,0,1];
+        inputs[map[i]].focus();
+        } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const map = [2,3,0,1];
+        inputs[map[i]].focus();
+        }
+    });
+    });
+    populateSelect();
+    problemSelect.value = 0;
+    loadProblems();
+    clearGrid();
+
+  </script>
+</body>
+</html>
