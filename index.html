@@ -29,6 +29,13 @@
     </nav>
   </header>
 
+  <div class="year-filter">
+    <label for="year-filter-select" style="display:none">Filter by year</label>
+    <select id="year-filter-select" aria-label="Filter releases by year">
+      <option value="all">All years</option>
+    </select>
+  </div>
+
   <div class="grid-container">
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1_tfrzCcqzgSbrxJE47xpRrnRVhrCvctw/view?usp=sharing" target="_blank"
@@ -315,6 +322,42 @@
 <footer>
   <p>&copy; 2026 MathEXplained. All rights reserved.</p>
 </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const cards = Array.from(document.querySelectorAll('.release-card'));
+  const select = document.getElementById('year-filter-select');
+
+  // Derive unique years from `.releasetitle` text
+  const years = Array.from(new Set(cards.map(c => {
+    const t = c.querySelector('.releasetitle')?.textContent || '';
+    const m = t.match(/\b(20\d{2})\b/);
+    return m ? m[1] : null;
+  }).filter(Boolean))).sort((a,b)=>b-a);
+
+  // Populate select with years
+  years.forEach(year => {
+    const opt = document.createElement('option');
+    opt.value = year;
+    opt.textContent = year;
+    select.appendChild(opt);
+  });
+
+  function applyFilter() {
+    const val = select.value;
+    cards.forEach(card => {
+      const title = (card.querySelector('.releasetitle')?.textContent || '').trim();
+      if (val === 'all' || title.includes(val)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  select.addEventListener('change', applyFilter);
+});
+</script>
 
 </body>
 </html>
