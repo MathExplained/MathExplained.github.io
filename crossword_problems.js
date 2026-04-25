@@ -1,4 +1,4 @@
-export const problems = [
+var problems = [
   {
     name: "October 2024",
     answer: ["3","4","7","6"],

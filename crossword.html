@@ -13,6 +13,102 @@
 </head>
 
 <body class="crossword-page with-header-gap">
+  <canvas id="proximity-grid" aria-hidden="true"></canvas>
+  <script>
+  (function(){
+    var canvas = document.getElementById('proximity-grid');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var mouse = { x: -9999, y: -9999 };
+    var CELL = 36;
+    var RADIUS = 180;
+    var BASE_ALPHA = 0.045;
+    var GLOW_ALPHA = 0.72;
+
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var cols = Math.ceil(canvas.width  / CELL) + 1;
+      var rows = Math.ceil(canvas.height / CELL) + 1;
+
+      for (var r = 0; r < rows; r++) {
+        for (var c = 0; c < cols; c++) {
+          var x = c * CELL;
+          var y = r * CELL;
+          var dx = x - mouse.x;
+          var dy = y - mouse.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          var proximity = Math.max(0, 1 - dist / RADIUS);
+          var alpha = BASE_ALPHA + proximity * proximity * (GLOW_ALPHA - BASE_ALPHA);
+
+          ctx.beginPath();
+          ctx.arc(x, y, 1.4, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(84, 145, 209,' + alpha.toFixed(3) + ')';
+          ctx.fill();
+        }
+      }
+
+      ctx.setLineDash([]);
+      for (var r2 = 0; r2 < rows; r2++) {
+        var y2 = r2 * CELL;
+        ctx.beginPath();
+        ctx.moveTo(0, y2);
+        ctx.lineTo(canvas.width, y2);
+        var distH = Math.abs(mouse.y - y2);
+        var pxH = Math.max(0, 1 - distH / RADIUS);
+        ctx.strokeStyle = 'rgba(84, 145, 209,' + (BASE_ALPHA * 0.7 + pxH * pxH * 0.30).toFixed(3) + ')';
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+      for (var c2 = 0; c2 < cols; c2++) {
+        var x2 = c2 * CELL;
+        ctx.beginPath();
+        ctx.moveTo(x2, 0);
+        ctx.lineTo(x2, canvas.height);
+        var distV = Math.abs(mouse.x - x2);
+        var pxV = Math.max(0, 1 - distV / RADIUS);
+        ctx.strokeStyle = 'rgba(84, 145, 209,' + (BASE_ALPHA * 0.7 + pxV * pxV * 0.30).toFixed(3) + ')';
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+
+    function loop() { draw(); requestAnimationFrame(loop); }
+
+    window.addEventListener('mousemove', function(e){ mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener('touchmove', function(e){ if(e.touches[0]){ mouse.x=e.touches[0].clientX; mouse.y=e.touches[0].clientY; } }, {passive:true});
+    window.addEventListener('resize', resize);
+    resize();
+    loop();
+  })();
+  </script>
+  <div class="math-bg-layer" aria-hidden="true"></div>
+  <script>
+  (function(){
+    var symbols=["π","e","i","∞","Σ","∫","√","dx","Δ","∇","α","β","γ","λ","μ","θ","φ","ψ","∅", "∈", "Ω","f(x)","n!","x²","2πr","πr²","a²+b²=c²","lim","log n","P(A|B)","det(A)","∮","mod p","C(n,k)","gcd","lcm","ℕ", "ℤ", "ℚ", "ℝ", "ℂ", "ℙ", "ℍ","σ²","E[X]","Var(X)","sin²+cos²=1","=", "≠", "≈", "≅", "≃", "≤", "≥","d/dx","ax²+bx+c","y=mx+b","e^{iπ}+1=0"];
+    var layer=document.querySelector(".math-bg-layer");
+    if(!layer)return;
+    for(var k=0;k<58;k++){
+      (function(idx){
+        var el=document.createElement("span");
+        el.className="math-symbol";
+        el.textContent=symbols[idx%symbols.length];
+        var size=0.85+Math.random()*1.5;
+        var dur=22+Math.random()*30;
+        var delay=-(Math.random()*dur);
+        var left=Math.random()*98;
+        var rot=(Math.random()-0.5)*50;
+        el.style.cssText="left:"+left+"%;font-size:"+size+"rem;animation-duration:"+dur+"s;animation-delay:"+delay+"s;--rot:"+rot+"deg;";
+        layer.appendChild(el);
+      })(k+Math.floor(Math.random()*symbols.length));
+    }
+  })();
+  </script>
+  <div class="announcement-banner">📣 This page is a work in progress!</div>
   <header class="headerbar">
     <div class="site-title">MathEXplained</div>
     <nav class="nav-right">
@@ -32,7 +128,7 @@
     </nav>
   </header>
 
-  <main class="container" role="main">
+  <main class="container crossword-container" role="main">
     <div class="puzzle-panel">
       <h2>MathEXplained Official Crossword Player</h2>
 
@@ -88,9 +184,9 @@
     <p>&copy; 2026 MathEXplained. All rights reserved.</p>
   </footer>
 
-  <script type="module">
-
-    import { problems } from './crossword_problems.js';
+  <script src="./crossword_problems.js"></script>
+  <script>
+    (function() {
     let currentProblem = problems[0];
 
     const problemSelect = document.getElementById('problemSelect');
@@ -214,6 +310,7 @@
     loadProblems();
     clearGrid();
 
+    })();
   </script>
 </body>
 </html>
