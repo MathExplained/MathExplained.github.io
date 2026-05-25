@@ -7,6 +7,8 @@
   <title>Apply - MathEXplained Magazine</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
 </head>
 
 <body class="apply-page with-header-gap">
@@ -86,7 +88,19 @@
   <div class="math-bg-layer" aria-hidden="true"></div>
   <script>
   (function(){
-    var symbols=["π","e","i","∞","Σ","∫","√","dx","Δ","∇","α","β","γ","λ","μ","θ","φ","ψ","∅", "∈", "Ω","f(x)","n!","x²","2πr","πr²","a²+b²=c²","lim","log n","P(A|B)","det(A)","∮","mod p","C(n,k)","gcd","lcm","ℕ", "ℤ", "ℚ", "ℝ", "ℂ", "ℙ", "ℍ","σ²","E[X]","Var(X)","sin²+cos²=1","=", "≠", "≈", "≅", "≃", "≤", "≥","d/dx","ax²+bx+c","y=mx+b","e^{iπ}+1=0"];
+    const symbols = [
+  "$\\pi$", "$e$", "$i$", "$\\infty$", "$\\Sigma$", "$\\int$", "$\\sqrt{}$", 
+  "$dx$", "$\\Delta$", "$\\nabla$", "$\\alpha$", "$\\beta$", "$\\gamma$", 
+  "$\\lambda$", "$\\mu$", "$\\theta$", "$\\varphi$", "$\\psi$", "$\\emptyset$", 
+  "$\\in$", "$\\Omega$", "$f(x)$", "$n!$", "$x^2$", "$2\\pi r$", "$\\pi r^2$", 
+  "$a^2+b^2=c^2$", "$\\lim$", "$\\log n$", "$P(A|B)$", "$\\det(A)$", 
+  "$\\oint$", "$\\bmod p$", "$C(n,k)$", "$\\gcd$", "$\\operatorname{lcm}$", 
+  "$\\mathbb{N}$", "$\\mathbb{Z}$", "$\\mathbb{Q}$", "$\\mathbb{R}$", 
+  "$\\mathbb{C}$", "$\\mathbb{P}$", "$\\mathbb{H}$", "$\\sigma^2$", 
+  "$E[X]$", "$\\operatorname{Var}(X)$", "$\\sin^2+\\cos^2=1$", "$=$", 
+  "$\\neq$", "$\\approx$", "$\\cong$", "$\\simeq$", "$\\leq$", "$\\geq$", 
+  "$\\frac{d}{dx}$", "$ax^2+bx+c$", "$y=mx+b$", "$e^{i\\pi}+1=0$"
+];
     var layer=document.querySelector(".math-bg-layer");
     if(!layer)return;
     for(var k=0;k<58;k++){
@@ -103,6 +117,23 @@
         layer.appendChild(el);
       })(k+Math.floor(Math.random()*symbols.length));
     }
+    function renderSymbolsWhenReady(){
+      var s = document.getElementById('MathJax-script');
+      function renderAll(){
+        var els = layer.querySelectorAll('.math-symbol');
+        els.forEach(function(el){
+          var tex = (el.textContent||'').trim();
+          if (tex.startsWith('$') && tex.endsWith('$')) tex = tex.slice(1,-1);
+          if (!tex) return;
+          if (window.MathJax && MathJax.tex2chtmlPromise) {
+            MathJax.tex2chtmlPromise(tex, {display:false}).then(function(node){ el.innerHTML=''; el.appendChild(node); }).catch(function(){ /* leave raw */ });
+          }
+        });
+      }
+      if (window.MathJax && MathJax.tex2chtmlPromise) renderAll();
+      else if (s) s.addEventListener('load', renderAll);
+    }
+    renderSymbolsWhenReady();
   })();
   </script>
   <div class="announcement-banner">📣 Join our Google Group for exclusive email updates! <a href="https://groups.google.com/g/mathexplained-magazine-releases" target="_blank">Learn more...</a></div>
