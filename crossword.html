@@ -7,9 +7,6 @@
   <title>Crossword - MathEXplained</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
-
-  <!-- MathJax for LaTeX rendering -->
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
 </head>
 
 <body class="crossword-page with-header-gap">
@@ -86,58 +83,44 @@
     loop();
   })();
   </script>
+
   <div class="math-bg-layer" aria-hidden="true"></div>
   <script>
   (function(){
     const symbols = [
-  "$\\pi$", "$e$", "$i$", "$\\infty$", "$\\Sigma$", "$\\int$", "$\\sqrt{}$", 
-  "$dx$", "$\\Delta$", "$\\nabla$", "$\\alpha$", "$\\beta$", "$\\gamma$", 
-  "$\\lambda$", "$\\mu$", "$\\theta$", "$\\varphi$", "$\\psi$", "$\\emptyset$", 
-  "$\\in$", "$\\Omega$", "$f(x)$", "$n!$", "$x^2$", "$2\\pi r$", "$\\pi r^2$", 
-  "$a^2+b^2=c^2$", "$\\lim$", "$\\log n$", "$P(A|B)$", "$\\det(A)$", 
-  "$\\oint$", "$\\bmod p$", "$C(n,k)$", "$\\gcd$", "$\\operatorname{lcm}$", 
-  "$\\mathbb{N}$", "$\\mathbb{Z}$", "$\\mathbb{Q}$", "$\\mathbb{R}$", 
-  "$\\mathbb{C}$", "$\\mathbb{P}$", "$\\mathbb{H}$", "$\\sigma^2$", 
-  "$E[X]$", "$\\operatorname{Var}(X)$", "$\\sin^2+\\cos^2=1$", "$=$", 
-  "$\\neq$", "$\\approx$", "$\\cong$", "$\\simeq$", "$\\leq$", "$\\geq$", 
-  "$\\frac{d}{dx}$", "$ax^2+bx+c$", "$y=mx+b$", "$e^{i\\pi}+1=0$"
-];
-    var layer=document.querySelector(".math-bg-layer");
-    if(!layer)return;
-    for(var k=0;k<58;k++){
+      "$\\pi$", "$e$", "$i$", "$\\infty$", "$\\Sigma$", "$\\int$", "$\\sqrt{}$",
+      "$dx$", "$\\Delta$", "$\\nabla$", "$\\alpha$", "$\\beta$", "$\\gamma$",
+      "$\\lambda$", "$\\mu$", "$\\theta$", "$\\varphi$", "$\\psi$", "$\\emptyset$",
+      "$\\in$", "$\\Omega$", "$f(x)$", "$n!$", "$x^2$", "$2\\pi r$", "$\\pi r^2$",
+      "$a^2+b^2=c^2$", "$\\lim$", "$\\log n$", "$P(A|B)$", "$\\det(A)$",
+      "$\\oint$", "$\\bmod p$", "$C(n,k)$", "$\\gcd$", "$\\operatorname{lcm}$",
+      "$\\mathbb{N}$", "$\\mathbb{Z}$", "$\\mathbb{Q}$", "$\\mathbb{R}$",
+      "$\\mathbb{C}$", "$\\mathbb{P}$", "$\\mathbb{H}$", "$\\sigma^2$",
+      "$E[X]$", "$\\operatorname{Var}(X)$", "$\\sin^2+\\cos^2=1$", "$=$",
+      "$\\neq$", "$\\approx$", "$\\cong$", "$\\simeq$", "$\\leq$", "$\\geq$",
+      "$\\frac{d}{dx}$", "$ax^2+bx+c$", "$y=mx+b$", "$e^{i\\pi}+1=0$"
+    ];
+    var layer = document.querySelector(".math-bg-layer");
+    if (!layer) return;
+    for (var k = 0; k < 58; k++) {
       (function(idx){
-        var el=document.createElement("span");
-        el.className="math-symbol";
-        el.textContent=symbols[idx%symbols.length];
-        var size=0.85+Math.random()*1.5;
-        var dur=22+Math.random()*30;
-        var delay=-(Math.random()*dur);
-        var left=Math.random()*98;
-        var rot=(Math.random()-0.5)*50;
-        el.style.cssText="left:"+left+"%;font-size:"+size+"rem;animation-duration:"+dur+"s;animation-delay:"+delay+"s;--rot:"+rot+"deg;";
+        var el = document.createElement("span");
+        el.className = "math-symbol";
+        el.textContent = symbols[idx % symbols.length];
+        var size  = 0.85 + Math.random() * 1.5;
+        var dur   = 22 + Math.random() * 30;
+        var delay = -(Math.random() * dur);
+        var left  = Math.random() * 98;
+        var rot   = (Math.random() - 0.5) * 50;
+        el.style.cssText = "left:" + left + "%;font-size:" + size + "rem;animation-duration:" + dur + "s;animation-delay:" + delay + "s;--rot:" + rot + "deg;";
         layer.appendChild(el);
-      })(k+Math.floor(Math.random()*symbols.length));
+      })(k + Math.floor(Math.random() * symbols.length));
     }
-    function renderSymbolsWhenReady(){
-      var s = document.getElementById('MathJax-script');
-      function renderAll(){
-        var els = layer.querySelectorAll('.math-symbol');
-        els.forEach(function(el){
-          var tex = (el.textContent||'').trim();
-          if (tex.startsWith('$') && tex.endsWith('$')) tex = tex.slice(1,-1);
-          if (!tex) return;
-          if (window.MathJax && MathJax.tex2chtmlPromise) {
-            MathJax.tex2chtmlPromise(tex, {display:false}).then(function(node){ el.innerHTML=''; el.appendChild(node); }).catch(function(){ /* leave raw */ });
-          }
-        });
-      }
-      if (window.MathJax && MathJax.tex2chtmlPromise) renderAll();
-      else if (s) s.addEventListener('load', renderAll);
-    }
-    renderSymbolsWhenReady();
   })();
   </script>
+
   <div class="announcement-banner">📣 This page is a work in progress!</div>
+
   <header class="headerbar">
     <div class="site-title">MathEXplained</div>
     <nav class="nav-right">
@@ -147,65 +130,80 @@
       <a href="crossword.html">Crossword</a>
       <a href="apply.html">APPLY!</a>
       <a href="https://discord.com/invite/Fnhwbzfpfz" target="_blank" class="navlink">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Join us on Discord"
-          class="discord-icon">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Join us on Discord" class="discord-icon">
       </a>
       <a href="https://www.instagram.com/mathexplainedmagazine" target="_blank" class="navlink">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"
-          alt="Follow us on Instagram" class="instagram-icon">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Follow us on Instagram" class="instagram-icon">
       </a>
     </nav>
   </header>
 
   <main class="container crossword-container" role="main">
-    <div class="puzzle-panel">
-      <h2>MathEXplained Official Crossword Player</h2>
+    <h2>MathEXplained Official Crossword Player</h2>
 
-      <div class="controls">
+    <!-- Top controls row: select left-ish, buttons right -->
+    <div class="cw-top-controls">
+      <div class="cw-select-wrap">
         <label for="problemSelect" class="sr-only">Select problem set:</label>
         <select id="problemSelect" aria-label="Select problem set"></select>
-        <button id="checkBtn" type="button">Check</button>
-        <button id="clearBtn" type="button">Clear</button>
       </div>
-
-      <div class="grid" aria-label="2x2 crossword grid">
-        <div class="cell">
-          <span class="cell-number">1.</span>
-          <input id="c0" inputmode="text" autocomplete="off" aria-label="cell 1">
-        </div>
-        <div class="cell">
-          <span class="cell-number">2.</span>
-          <input id="c1" inputmode="text" autocomplete="off" aria-label="cell 2">
-        </div>
-        <div class="cell">
-          <span class="cell-number">3.</span>
-          <input id="c2" inputmode="text" autocomplete="off" aria-label="cell 3">
-        </div>
-        <div class="cell">
-          <input id="c3" inputmode="text" autocomplete="off" aria-label="cell 4">
-        </div>
-      </div>
-
-      <div class="status" id="statusText" aria-live="polite"></div>
-
-      <div id="solutionBox" class="solution-box" role="region" aria-label="Solutions">
-        <div class="sol-nav">
-          <div style="font-weight:700;color:var(--blue-700)">Solutions</div>
-          <div>
-            <span class="sol-arrows" id="prevSol" title="Previous solution">◀</span>
-            <span class="sol-arrows" id="nextSol" title="Next solution">▶</span>
-          </div>
-        </div>
-        <div id="solutionContent" class="solution-content"></div>
+      <div class="cw-btn-group">
+        <button id="checkBtn"  type="button" class="cw-btn cw-btn-check">Check</button>
+        <button id="clearBtn"  type="button" class="cw-btn cw-btn-clear">Clear</button>
+        <button id="giveUpBtn" type="button" class="cw-btn cw-btn-giveup">Give Up</button>
       </div>
     </div>
 
-    <aside class="problems-panel">
-      <div class="release-card">
-        <h3 style="margin-top:0; color:var(--blue-700);">Problems</h3>
-        <div id="problemsList"></div>
+    <!-- Main two-panel layout -->
+    <div class="cw-main-layout">
+
+      <!-- LEFT: Problem PDF viewer -->
+      <div class="cw-pdf-panel">
+        <div class="cw-pdf-label">Problems</div>
+        <iframe
+          id="problemPdfFrame"
+          class="cw-pdf-iframe"
+          title="Problem PDF"
+          aria-label="Problem PDF viewer"
+        ></iframe>
       </div>
-    </aside>
+
+      <!-- RIGHT: Interactive crossword grid -->
+      <div class="cw-grid-panel">
+        <div class="grid" aria-label="2x2 crossword grid">
+          <div class="cell">
+            <span class="cell-number">1.</span>
+            <input id="c0" inputmode="text" autocomplete="off" aria-label="cell 1">
+          </div>
+          <div class="cell">
+            <span class="cell-number">2.</span>
+            <input id="c1" inputmode="text" autocomplete="off" aria-label="cell 2">
+          </div>
+          <div class="cell">
+            <span class="cell-number">3.</span>
+            <input id="c2" inputmode="text" autocomplete="off" aria-label="cell 3">
+          </div>
+          <div class="cell">
+            <input id="c3" inputmode="text" autocomplete="off" aria-label="cell 4">
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.cw-main-layout -->
+
+    <!-- Status text -->
+    <div class="status" id="statusText" aria-live="polite"></div>
+
+    <!-- Solution PDF viewer — shown on win OR give up -->
+    <div id="solutionBox" class="cw-solution-panel" role="region" aria-label="Solutions" style="display:none;">
+      <div class="cw-pdf-label">Solutions</div>
+      <iframe
+        id="solutionPdfFrame"
+        class="cw-pdf-iframe cw-solution-iframe"
+        title="Solution PDF"
+        aria-label="Solution PDF viewer"
+      ></iframe>
+    </div>
 
   </main>
 
@@ -213,133 +211,132 @@
     <p>&copy; 2026 MathEXplained. All rights reserved.</p>
   </footer>
 
-  <script src="./crossword_problems.js"></script>
+  <script src="./crossword_data.js"></script>
   <script>
-    (function() {
-    let currentProblem = problems[0];
-
-    const problemSelect = document.getElementById('problemSelect');
-    const problemsList = document.getElementById('problemsList');
-    const statusText = document.getElementById('statusText');
-    const solutionBox = document.getElementById('solutionBox');
-    const solutionContent = document.getElementById('solutionContent');
-    const inputs = [0,1,2,3].map(i => document.getElementById('c'+i));
-    const checkBtn = document.getElementById('checkBtn');
-    const clearBtn = document.getElementById('clearBtn');
-    const prevSolBtn = document.getElementById('prevSol');
-    const nextSolBtn = document.getElementById('nextSol');
-
+  (function () {
     let current = 0;
-    let solIdx = 0;
+    let PATH = "crossword_pdfs/";
 
-    function populateSelect(){
-      problems.forEach((p, idx) => {
-        const o = document.createElement('option');
+    const problemSelect    = document.getElementById('problemSelect');
+    const problemPdfFrame  = document.getElementById('problemPdfFrame');
+    const solutionPdfFrame = document.getElementById('solutionPdfFrame');
+    const statusText       = document.getElementById('statusText');
+    const solutionBox      = document.getElementById('solutionBox');
+    const inputs           = [0, 1, 2, 3].map(i => document.getElementById('c' + i));
+    const checkBtn         = document.getElementById('checkBtn');
+    const clearBtn         = document.getElementById('clearBtn');
+    const giveUpBtn        = document.getElementById('giveUpBtn');
+
+    /* ── Populate select ── */
+    function populateSelect() {
+      crosswordData.forEach(function (entry, idx) {
+        var o = document.createElement('option');
         o.value = idx;
-        o.textContent = p.name;
+        o.textContent = entry.name;
+
+        if (entry.disabled) {
+          o.disabled = true;
+        }
         problemSelect.appendChild(o);
       });
     }
 
-    function loadProblems(){
-      const p = problems[current];
-      problemsList.innerHTML = p.problems.map((html, i) => `<div class="problem">${html}</div>`).join('');
-      // render math
-      if (window.MathJax && MathJax.typesetPromise) {
-        MathJax.typesetPromise();
-      }
+    /* ── Load PDFs for selected month ── */
+    function loadEntry() {
+      var entry = crosswordData[current];
+      problemPdfFrame.src = PATH + entry.problemPdf;
+      clearGrid();
     }
 
-    function clearGrid(){
-      inputs.forEach(inp => inp.value = '');
+    /* ── Clear grid + hide solution ── */
+    function clearGrid() {
+      inputs.forEach(function (inp) { inp.value = ''; });
       statusText.textContent = '';
       solutionBox.style.display = 'none';
+      solutionPdfFrame.src = '';
     }
 
-    function checkWin(){
-      const p = problems[current];
-      let allFilled = true;
-      let allCorrect = true;
+    /* ── Show solution PDF ── */
+    function showSolution() {
+      var entry = crosswordData[current];
+      solutionPdfFrame.src = PATH + entry.solutionPdf;
+      solutionBox.style.display = 'block';
+      solutionBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
-      for (let i=0; i<4; ++i) {
-        const user = (inputs[i].value || '').trim();
+    /* ── Check answers ── */
+    function checkWin() {
+      var entry = crosswordData[current];
+      var allFilled  = true;
+      var allCorrect = true;
+
+      for (var i = 0; i < 4; i++) {
+        var user = (inputs[i].value || '').trim();
         if (user === '') allFilled = false;
-        if (user !== p.answer[i]) allCorrect = false;
+        if (user !== entry.answer[i]) allCorrect = false;
       }
 
       if (allCorrect && allFilled) {
         statusText.textContent = '🎉 You win!';
-        showSolution(0);
+        showSolution();
       } else {
-        statusText.textContent = 'Incorrect; keep trying!';
+        statusText.textContent = '🚫 Incorrect — keep going!';
         solutionBox.style.display = 'none';
       }
     }
 
-    /* show solutions (with arrows) */
-    function showSolution(idx){
-      const p = problems[current];
-      solIdx = ((idx % p.solutions.length) + p.solutions.length) % p.solutions.length;
-      solutionContent.innerHTML = p.solutions[solIdx];
-      solutionBox.style.display = 'block';
-      if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
+    /* ── Give Up ── */
+    function giveUp() {
+      statusText.textContent = '😔 Better luck next time!';
+      showSolution();
     }
 
-    /* wire events */
-    problemSelect.addEventListener('change', () => {
-      current = Number(problemSelect.value);
-      loadProblems();
-      clearGrid();
+    /* ── Input behaviour ── */
+    inputs.forEach(function (inp, i) {
+      inp.setAttribute('maxlength', '1');
+
+      inp.addEventListener('input', function (e) {
+        var cleaned = (e.target.value || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 1);
+        e.target.value = cleaned;
+        if (cleaned) {
+          inputs[(i + 1) % inputs.length].focus();
+        }
+      });
+
+      inp.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          checkWin();
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          inputs[(i + 1) % inputs.length].focus();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          inputs[(i - 1 + inputs.length) % inputs.length].focus();
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          inputs[[2, 3, 0, 1][i]].focus();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          inputs[[2, 3, 0, 1][i]].focus();
+        }
+      });
     });
 
+    /* ── Wire buttons ── */
+    problemSelect.addEventListener('change', function () {
+      current = Number(problemSelect.value);
+      loadEntry();
+    });
     checkBtn.addEventListener('click', checkWin);
     clearBtn.addEventListener('click', clearGrid);
-    nextSolBtn.addEventListener('click', () => showSolution(solIdx + 1));
-    prevSolBtn.addEventListener('click', () => showSolution(solIdx - 1));
+    giveUpBtn.addEventListener('click', giveUp);
 
-    inputs.forEach((inp, i) => {
-    inp.setAttribute('maxlength', '1');
-
-    inp.addEventListener('input', (e) => {
-        // keep only the first alphanumeric char and uppercase it
-        const cleaned = (e.target.value || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0,1);
-        e.target.value = cleaned;
-
-        // auto-advance if cell now has a character
-        if (cleaned) {
-        const nextIndex = (i + 1) % inputs.length;
-        inputs[nextIndex].focus();
-        }
-    });
-
-    // keep keyboard navigation working (arrows + Enter)
-    inp.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-        e.preventDefault();
-        checkWin();
-        } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        inputs[(i+1) % inputs.length].focus();
-        } else if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        inputs[(i-1+inputs.length) % inputs.length].focus();
-        } else if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        const map = [2,3,0,1];
-        inputs[map[i]].focus();
-        } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        const map = [2,3,0,1];
-        inputs[map[i]].focus();
-        }
-    });
-    });
+    /* ── Init ── */
     populateSelect();
     problemSelect.value = 0;
-    loadProblems();
-    clearGrid();
-
-    })();
+    loadEntry();
+  })();
   </script>
 </body>
 </html>
