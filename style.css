@@ -6,7 +6,7 @@
 :root {
   --blue-700:      #334d76;
   --blue-600:      #445e87;
-  --accent:        #87a6fb;
+  --accent:        #2f66ff;
   --glass-bg:      rgba(255, 255, 255, 0.45);
   --glass-strong:  rgba(255, 255, 255, 0.80);
   --shadow:        rgba(28, 69, 135, 0.08);
@@ -18,8 +18,6 @@
   --container-pad: 2em 2.5em;
   --section-gap:   2rem;
 }
-
-
 
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -430,4 +428,213 @@ footer p:last-child  { font-size: 0.9rem; color: #5b6f88; }
   h1 { font-size: 1.8rem; } h2 { font-size: 1.4rem; }
   .staff-card { width: 220px; }
   .staff-photo { width: 110px; height: 110px; }
+}
+
+/* ============================================================
+   Crossword Page — PDF + Grid Layout (added rules, no existing rules modified)
+   ============================================================ */
+
+/* Screen-reader only utility */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* Main container override for crossword — wider, column layout */
+.crossword-page main.container {
+  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: left;
+  padding: 1.75em 2em 2em;
+}
+
+.crossword-page main.container h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* ── Top controls bar ── */
+.cw-top-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.cw-select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cw-select-wrap select,
+#problemSelect {
+  padding: 0.5rem 0.75rem;
+  font-family: Georgia, serif;
+  font-size: 0.97rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.13);
+  background: var(--glass-bg);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  color: var(--blue-700);
+  font-weight: 600;
+}
+
+.cw-btn-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Base button style */
+.cw-btn {
+  padding: 0.5rem 1.2rem;
+  font-family: Georgia, serif;
+  font-size: 0.97rem;
+  font-weight: 700;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.12s ease, box-shadow 0.2s ease;
+  box-shadow: 0 3px 10px var(--shadow);
+  letter-spacing: 0.01em;
+}
+.cw-btn:hover  { transform: translateY(-1px); box-shadow: 0 6px 16px var(--shadow-strong); }
+.cw-btn:active { transform: translateY(0px);  box-shadow: 0 2px 6px var(--shadow); }
+
+.cw-btn-check {
+  background: var(--blue-600);
+  color: #fff;
+}
+.cw-btn-check:hover { background: var(--blue-700); }
+
+.cw-btn-clear {
+  background: rgba(255,255,255,0.72);
+  color: var(--blue-700);
+  border: 1.5px solid rgba(68, 94, 135, 0.30);
+}
+.cw-btn-clear:hover { background: rgba(255,255,255,0.92); }
+
+.cw-btn-giveup {
+  background: #c0392b;
+  color: #fff;
+}
+.cw-btn-giveup:hover { background: #a93226; }
+
+/* ── Main two-panel layout ── */
+.cw-main-layout {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* LEFT — Problem PDF */
+.cw-pdf-panel {
+  flex: 1 1 55%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* RIGHT — Crossword grid */
+.cw-grid-panel {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* right-align everything in this column */
+  gap: 0.75rem;
+}
+
+/* PDF label shared */
+.cw-pdf-label {
+  font-family: Georgia, serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--blue-600);
+  opacity: 0.75;
+}
+
+/* PDF iframes */
+.cw-pdf-iframe {
+  width: 100%;
+  height: 560px;
+  border: 2px solid rgba(0,0,0,0.12);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px var(--shadow);
+  background: rgba(255,255,255,0.85);
+  display: block;
+}
+
+/* ── Status text ── */
+.crossword-page .status {
+  text-align: center;
+  font-family: Georgia, serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--blue-700);
+  padding: 0.75rem 0 0.25rem;
+  min-height: 2.5rem;
+}
+
+/* ── Solution panel (full-width, centered, below status) ── */
+.cw-solution-panel {
+  width: 100%;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cw-solution-iframe {
+  height: 640px;
+  max-width: 860px;
+  border-radius: 14px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .cw-main-layout {
+    flex-direction: column;
+  }
+  .cw-pdf-panel {
+    flex: none;
+    width: 100%;
+  }
+  .cw-grid-panel {
+    align-items: center;
+    width: 100%;
+  }
+  .cw-pdf-iframe {
+    height: 420px;
+  }
+  .cw-solution-iframe {
+    height: 480px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cw-top-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cw-btn-group {
+    flex-wrap: wrap;
+  }
+  .cw-pdf-iframe {
+    height: 340px;
+  }
+  .cw-solution-iframe {
+    height: 380px;
+  }
 }
