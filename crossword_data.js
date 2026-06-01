@@ -90,9 +90,8 @@ var crosswordData = [
   },
   {
     name: "May 2026",
-    answer: ["", "", "", ""],
+    answer: ["8", "1", "4", "9"],
     problemPdf: "2026_05P.pdf",
     solutionPdf: "2026_05S.pdf",
-    disabled: true
   }
 ];
