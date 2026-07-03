@@ -93,5 +93,11 @@ var crosswordData = [
     answer: ["8", "1", "4", "9"],
     problemPdf: "2026_05P.pdf",
     solutionPdf: "2026_05S.pdf",
-  }
+  },
+  {
+    name: "June-July 2026",
+    answer: ["6", "4", "3", "2"],
+    problemPdf: "2026_06-07P.pdf",
+    solutionPdf: "2026_06-07S.pdf",
+  },
 ];
