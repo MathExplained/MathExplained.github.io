@@ -5,168 +5,83 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>MathEXplained Magazine</title>
+  <meta name="description" content="MathEXplained is a free, student-run monthly magazine about mathematics. Browse every past issue, from partitions and fractals to the 37% rule." />
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400..700&display=swap">
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://unpkg.com/lucide@1.27.0/dist/umd/lucide.min.js" defer></script>
+
+  <!-- Pre-rendered SVG for the decorative background; no MathJax runtime needed. -->
+  <script src="math-symbols.js" defer></script>
+  <script src="background.js" defer></script>
+  <script src="site.js" defer></script>
 </head>
 
 <body class="index-page with-header-gap">
+  <a class="skip-link" href="#main">Skip to content</a>
   <canvas id="proximity-grid" aria-hidden="true"></canvas>
-  <script>
-  (function(){
-    var canvas = document.getElementById('proximity-grid');
-    if (!canvas) return;
-    var ctx = canvas.getContext('2d');
-    var mouse = { x: -9999, y: -9999 };
-    var CELL = 36;
-    var RADIUS = 180;
-    var BASE_ALPHA = 0.045;
-    var GLOW_ALPHA = 0.72;
-
-    function resize() {
-      canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      var cols = Math.ceil(canvas.width  / CELL) + 1;
-      var rows = Math.ceil(canvas.height / CELL) + 1;
-
-      for (var r = 0; r < rows; r++) {
-        for (var c = 0; c < cols; c++) {
-          var x = c * CELL;
-          var y = r * CELL;
-          var dx = x - mouse.x;
-          var dy = y - mouse.y;
-          var dist = Math.sqrt(dx * dx + dy * dy);
-          var proximity = Math.max(0, 1 - dist / RADIUS);
-          var alpha = BASE_ALPHA + proximity * proximity * (GLOW_ALPHA - BASE_ALPHA);
-
-          ctx.beginPath();
-          ctx.arc(x, y, 1.4, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(84, 145, 209,' + alpha.toFixed(3) + ')';
-          ctx.fill();
-        }
-      }
-
-      ctx.setLineDash([]);
-      for (var r2 = 0; r2 < rows; r2++) {
-        var y2 = r2 * CELL;
-        ctx.beginPath();
-        ctx.moveTo(0, y2);
-        ctx.lineTo(canvas.width, y2);
-        var distH = Math.abs(mouse.y - y2);
-        var pxH = Math.max(0, 1 - distH / RADIUS);
-        ctx.strokeStyle = 'rgba(84, 145, 209,' + (BASE_ALPHA * 0.7 + pxH * pxH * 0.30).toFixed(3) + ')';
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
-      for (var c2 = 0; c2 < cols; c2++) {
-        var x2 = c2 * CELL;
-        ctx.beginPath();
-        ctx.moveTo(x2, 0);
-        ctx.lineTo(x2, canvas.height);
-        var distV = Math.abs(mouse.x - x2);
-        var pxV = Math.max(0, 1 - distV / RADIUS);
-        ctx.strokeStyle = 'rgba(84, 145, 209,' + (BASE_ALPHA * 0.7 + pxV * pxV * 0.30).toFixed(3) + ')';
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
-    }
-
-    function loop() { draw(); requestAnimationFrame(loop); }
-
-    window.addEventListener('mousemove', function(e){ mouse.x = e.clientX; mouse.y = e.clientY; });
-    window.addEventListener('touchmove', function(e){ if(e.touches[0]){ mouse.x=e.touches[0].clientX; mouse.y=e.touches[0].clientY; } }, {passive:true});
-    window.addEventListener('resize', resize);
-    resize();
-    loop();
-  })();
-  </script>
   <div class="math-bg-layer" aria-hidden="true"></div>
-  <script>
-  (function(){
-    const symbols = [
-  "$\\pi$", "$e$", "$i$", "$\\infty$", "$\\Sigma$", "$\\int$", "$\\sqrt{}$", 
-  "$dx$", "$\\Delta$", "$\\nabla$", "$\\alpha$", "$\\beta$", "$\\gamma$", 
-  "$\\lambda$", "$\\mu$", "$\\theta$", "$\\varphi$", "$\\psi$", "$\\emptyset$", 
-  "$\\in$", "$\\Omega$", "$f(x)$", "$n!$", "$x^2$", "$2\\pi r$", "$\\pi r^2$", 
-  "$a^2+b^2=c^2$", "$\\lim$", "$\\log n$", "$P(A|B)$", "$\\det(A)$", 
-  "$\\oint$", "$\\bmod p$", "$C(n,k)$", "$\\gcd$", "$\\operatorname{lcm}$", 
-  "$\\mathbb{N}$", "$\\mathbb{Z}$", "$\\mathbb{Q}$", "$\\mathbb{R}$", 
-  "$\\mathbb{C}$", "$\\mathbb{P}$", "$\\mathbb{H}$", "$\\sigma^2$", 
-  "$E[X]$", "$\\operatorname{Var}(X)$", "$\\sin^2+\\cos^2=1$", "$=$", 
-  "$\\neq$", "$\\approx$", "$\\cong$", "$\\simeq$", "$\\leq$", "$\\geq$", 
-  "$\\frac{d}{dx}$", "$ax^2+bx+c$", "$y=mx+b$", "$e^{i\\pi}+1=0$"
-];
-    var layer=document.querySelector(".math-bg-layer");
-    if(!layer)return;
-    for(var k=0;k<58;k++){
-      (function(idx){
-        var el=document.createElement("span");
-        el.className="math-symbol";
-        el.textContent=symbols[idx%symbols.length];
-        var size=0.85+Math.random()*1.5;
-        var dur=22+Math.random()*30;
-        var delay=-(Math.random()*dur);
-        var left=Math.random()*98;
-        var rot=(Math.random()-0.5)*50;
-        el.style.cssText="left:"+left+"%;font-size:"+size+"rem;animation-duration:"+dur+"s;animation-delay:"+delay+"s;--rot:"+rot+"deg;";
-        layer.appendChild(el);
-      })(k+Math.floor(Math.random()*symbols.length));
-    }
-    function renderSymbolsWhenReady(){
-      var s = document.getElementById('MathJax-script');
-      function renderAll(){
-        var els = layer.querySelectorAll('.math-symbol');
-        els.forEach(function(el){
-          var tex = (el.textContent||'').trim();
-          if (tex.startsWith('$') && tex.endsWith('$')) tex = tex.slice(1,-1);
-          if (!tex) return;
-          if (window.MathJax && MathJax.tex2chtmlPromise) {
-            MathJax.tex2chtmlPromise(tex, {display:false}).then(function(node){ el.innerHTML=''; el.appendChild(node); }).catch(function(){ /* leave raw */ });
-          }
-        });
-      }
-      if (window.MathJax && MathJax.tex2chtmlPromise) renderAll();
-      else if (s) s.addEventListener('load', renderAll);
-    }
-    renderSymbolsWhenReady();
-  })();
-  </script>
   <div class="announcement-banner">📣 Join our Google Group for exclusive email updates! <a href="https://groups.google.com/g/mathexplained-magazine-releases" target="_blank">Learn more...</a></div>
   <header class="headerbar">
-    <div class="site-title">MathEXplained</div>
-    <nav class="nav-right">
+    <a class="brand" href="index.html">
+      <img src="logo.webp" width="48" height="48">
+      <span class="site-title">Math<span class="accent">EX</span>plained</span>
+    </a>
+    <nav class="nav-right" aria-label="Primary">
       <a href="index.html">Past Releases</a>
       <a href="about_us.html">About Us</a>
       <a href="staff.html">Staff</a>
       <a href="crossword.html">Crossword</a>
-      <a href="apply.html">APPLY!</a>
+      <a href="apply.html" class="nav-cta">APPLY!</a>
       <a href="https://discord.com/invite/Fnhwbzfpfz" target="_blank" class="navlink">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Join us on Discord"
-          class="discord-icon">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Join us on Discord" class="discord-icon">
       </a>
       <a href="https://www.instagram.com/mathexplainedmagazine" target="_blank" class="navlink">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"
-          alt="Follow us on Instagram" class="instagram-icon">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Follow us on Instagram" class="instagram-icon">
       </a>
     </nav>
   </header>
 
-  <div class="year-filter">
-    <label for="year-filter-select" style="display:none">Filter by year</label>
-    <select id="year-filter-select" aria-label="Filter releases by year">
-      <option value="all">All years</option>
-    </select>
-  </div>
-    
+  <main id="main">
+    <section class="hero">
+      <h1 class="hero-title">Math, <em> 100% EXplained.</em></h1>
+      <p class="hero-sub">A student-run magazine that turns the corners of mathematics into applicable stories anyone can read.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#archive">Browse the archive</a>
+        <a class="btn btn-ghost" href="apply.html">Write for us</a>
+      </div>
+      <dl class="hero-stats">
+        <div><dt data-stat="issues">24</dt><dd>Issues published</dd></div>
+        <div><dt data-stat="articles">100+</dt><dd>Spreads</dd></div>
+        <div><dt>15</dt><dd>Staffers worldwide</dd></div>
+      </dl>
+    </section>
+
+    <div class="section-head" id="archive">
+      <h2>The Archive</h2>
+      <p class="section-note">Every issue, free to read.</p>
+    </div>
+
+    <div class="archive-toolbar" data-archive>
+      <div class="filter-pills" role="group" aria-label="Filter issues by year"></div>
+      <div class="archive-tools">
+        <span class="archive-count" id="archive-count" role="status" aria-live="polite"></span>
+        <div class="archive-search">
+          <i data-lucide="search"></i>
+          <label class="sr-only" for="archive-search">Search releases and spreads</label>
+          <input id="archive-search" type="search" placeholder="Search releases&hellip;" autocomplete="off">
+        </div>
+      </div>
+    </div>
+
   <div class="grid-container">
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1KgW9KrXfylhPzAtyPWC424OoTVim-qpW/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1WZP1ZznE4vClaKNbg4n4bP8O7xrSrdgy" alt="June-July 2026 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1WZP1ZznE4vClaKNbg4n4bP8O7xrSrdgy" alt="June-July 2026 Cover" decoding="async">
         <div class="releasetitle">June-July 2026 Release</div>
         <div class="releasedescription">
           <p>1. How Hyperbolic Geometry is Shown in Nature</p>
@@ -181,7 +96,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1R7Zm4sjXjOWrajyjAoXGoJiE2IyXkpwX/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1lpDjcBX78lECl3BsdOtVfif5TcoF4Dlu" alt="May 2026 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1lpDjcBX78lECl3BsdOtVfif5TcoF4Dlu" alt="May 2026 Cover" decoding="async">
         <div class="releasetitle">May 2026 Release</div>
         <div class="releasedescription">
           <p>1. The Narcissists of Number Theory</p>
@@ -195,7 +110,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1HW1izEnKY4ob6wu2aLTApPH4OCQs5Ca5/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1jCs9c3GTUNYn2utyWWukRhxLf2EJRfoV" alt="April 2026 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1jCs9c3GTUNYn2utyWWukRhxLf2EJRfoV" alt="April 2026 Cover" decoding="async">
         <div class="releasetitle">April 2026 Release</div>
         <div class="releasedescription">
           <p>1. The 37% Rule of Knowing When To Stop</p>
@@ -210,7 +125,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1VbQV7h6SClgKV732i5OT0mnSytLuCBHn/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1eaPjOvdr7nf4bC1XV2GoC8Mv3AeiQENP" alt="March 2026 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1eaPjOvdr7nf4bC1XV2GoC8Mv3AeiQENP" alt="March 2026 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">March 2026 Release</div>
         <div class="releasedescription">
           <p>1. Emmy Noether: The Most Influential Woman in Physics and Mathematics</p>
@@ -225,7 +140,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1_tfrzCcqzgSbrxJE47xpRrnRVhrCvctw/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1_cSkpV5QRB7VuVvzUrV9QdGzjsslk7_3" alt="February 2026 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1_cSkpV5QRB7VuVvzUrV9QdGzjsslk7_3" alt="February 2026 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">February 2026 Release</div>
         <div class="releasedescription">
           <p>1. A Mathematical Valentine</p>
@@ -239,7 +154,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1DLW1mnK8m2pgWTkhAhj3ZQS9nLoYx5T9/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1EVg8g5L649vnNExuyY0LJ3ZFaDWlHaJt" alt="January 2026 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1EVg8g5L649vnNExuyY0LJ3ZFaDWlHaJt" alt="January 2026 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">January 2026 Release</div>
         <div class="releasedescription">
           <p>1. Why Waking Up in the Winter Is So Hard</p>
@@ -253,7 +168,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1K3ZCNWuJDqLbyc7zyajhBjw_xil7UatR/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=18zD8ym1lv28xAsl695EgvY82zhSN0Get" alt="December 2025 Cover">
+        <img src="https://drive.google.com/thumbnail?id=18zD8ym1lv28xAsl695EgvY82zhSN0Get" alt="December 2025 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">December 2025 Release</div>
         <div class="releasedescription">
           <p>1. A December Nobel & The Gift of Stability</p>
@@ -266,7 +181,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1bza0cMA0cvMbHgvkpGU5oGBwedCkxT4s/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1ZqX81npqAGYoZ_G01CUZGGcwkVYFG7Ax" alt="November 2025 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1ZqX81npqAGYoZ_G01CUZGGcwkVYFG7Ax" alt="November 2025 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">November 2025 Release</div>
         <div class="releasedescription">
           <p>1. Four Colors Suffice: Inside the Long History of the Four Color Theorem</p>
@@ -280,7 +195,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1KsZsWIbDb5zFh_Afoo63sOV4q15P5fw0/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1LibJwoab1kypN8UwUA3-YNEvyCwgZ9IX" alt="October 2025 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1LibJwoab1kypN8UwUA3-YNEvyCwgZ9IX" alt="October 2025 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">October 2025 Release</div>
         <div class="releasedescription">
           <p>1. The Benford Hierarchy: Why Your Data Prefers a '1'</p>
@@ -294,7 +209,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1-EleNMfMB1aUd5bDzK_2MKaAJaVR3VLI/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1fcwbcx8TyzUjm1FCfXKwk2XYdItBrLZb" alt="September 2025 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1fcwbcx8TyzUjm1FCfXKwk2XYdItBrLZb" alt="September 2025 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">September 2025 Release</div>
         <div class="releasedescription">
           <p>1. PID Control: The Math that Keeps Machines Steady</p>
@@ -307,7 +222,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1CaKMp6i5jezvE8aoFgn5DZQ5eVoPs04i/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=17SB56uaEitnUzSggxZ9ElazIN_4YgRlZ" alt="August 2025 Cover">
+        <img src="https://drive.google.com/thumbnail?id=17SB56uaEitnUzSggxZ9ElazIN_4YgRlZ" alt="August 2025 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">August 2025 Release</div>
         <div class="releasedescription">
           <p>1. The Banach-Tarski Paradox</p>
@@ -326,7 +241,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1zEIb3OilpFtnBK7rRWYpvGNMNrzGuaIf/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1w9v9hyvQfa9U6Uxz9S1fl0ReZxez4TW4" alt="July 2025 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1w9v9hyvQfa9U6Uxz9S1fl0ReZxez4TW4" alt="July 2025 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">July 2025 Release</div>
         <div class="releasedescription">
           <p>1. The Linear Algebra Behind Search Results</p>
@@ -340,7 +255,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1ztgh3XosO3c1n4GgHqIYHIRqG3fjY2pF/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1zAgm_q3seq2-ghI_9i8Xpr284opRUBD4" alt="June 2025 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1zAgm_q3seq2-ghI_9i8Xpr284opRUBD4" alt="June 2025 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">June 2025 Release</div>
         <div class="releasedescription">
           <p>1. Primality Tests</p>
@@ -353,7 +268,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1K1M49R19Rjcj4t_01hOIZwOJVVrHdHpP/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=17mBrvl6y1_GM4tCkdCvO9USB067HstBE" alt="May 2025 Cover">
+        <img src="https://drive.google.com/thumbnail?id=17mBrvl6y1_GM4tCkdCvO9USB067HstBE" alt="May 2025 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">May 2025 Release</div>
         <div class="releasedescription">
           <p>1. Sports Betting</p>
@@ -368,7 +283,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/16vb-fqvkEu_qpHceTKaY67eWal4Fnh3D/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1cJgEeIB-R-BWsChajt34l78c5Vy7Mu-k" alt="April 2025 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1cJgEeIB-R-BWsChajt34l78c5Vy7Mu-k" alt="April 2025 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">April 2025 Release</div>
         <div class="releasedescription">
           <p>1. Fibonacci in Nature</p>
@@ -382,7 +297,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1I4mZlhtHcc3L_Gt6j0u99lYECDq1qJG-/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1ffvyRQN2flN637MVGkN0irXAWa1x__xK" alt="March 2025 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1ffvyRQN2flN637MVGkN0irXAWa1x__xK" alt="March 2025 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">March 2025 Release</div>
         <div class="releasedescription">
           <p>1. Exploring π's Legacy Through the Ages</p>
@@ -396,7 +311,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1PDb5bQEt-2uaNRzhVN0enNLxndt_Zl3r/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1hcTc7oJuT26R1VRx8RIG42Oi4ZWRphRy" alt="February 2025 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1hcTc7oJuT26R1VRx8RIG42Oi4ZWRphRy" alt="February 2025 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">February 2025 Release</div>
         <div class="releasedescription">
           <p>1. Is Punxsutawney Phil Actually a Fraud?</p>
@@ -409,7 +324,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1mr3On7OeMTaFnH-aTaDxXC5HHxwhgA2e/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=125FBr1CdDa16cjJ1dnRNnDofoSqTQDyt" alt="January 2025 Cover">
+        <img src="https://drive.google.com/thumbnail?id=125FBr1CdDa16cjJ1dnRNnDofoSqTQDyt" alt="January 2025 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">January 2025 Release</div>
         <div class="releasedescription">
           <p>1. Math's Most Beautiful Equation Explained</p>
@@ -422,7 +337,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1ecx7rgrrJ_E86uqZ7yc7PGkeJtClJbda/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=10dNQHDzRFMX2IramuNTcFmythmnL3qRD" alt="December 2024 Cover">
+        <img src="https://drive.google.com/thumbnail?id=10dNQHDzRFMX2IramuNTcFmythmnL3qRD" alt="December 2024 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">December 2024 Release</div>
         <div class="releasedescription">
           <p>1. Monte Carlo Fallacy - the Death of Inexperienced Gamblers</p>
@@ -435,7 +350,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1T89HK8i8vs2fWdYSIvemgKy4U3JEXepZ/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1XR0gJ5oYh6hu1fZ2Ss0C-W4y2yYHnIT5" alt="November 2024 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1XR0gJ5oYh6hu1fZ2Ss0C-W4y2yYHnIT5" alt="November 2024 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">November 2024 Release</div>
         <div class="releasedescription">
           <p>1. Voting Theory: the Impossibility of Perfection</p>
@@ -450,7 +365,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/17pZcgOOLXz3JYWEXyGVhSrnd_MITgNiZ/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1kzXW82a6VrkuVCLPNTP4AwP5yir8kf-3" alt="October 2024 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1kzXW82a6VrkuVCLPNTP4AwP5yir8kf-3" alt="October 2024 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">October 2024 Release</div>
         <div class="releasedescription">
           <p>1. Achieving Musical Harmony with Math</p>
@@ -465,7 +380,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1YuIAVMfM54ytgCSygmJ9UbNIK9RVl1iC/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1SP4JcGakwKt86FOhcNrMuknyW4G5f2ZJ" alt="September 2024 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1SP4JcGakwKt86FOhcNrMuknyW4G5f2ZJ" alt="September 2024 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">September 2024 Release</div>
         <div class="releasedescription">
           <p>1. Notice Deceptive Statistics</p>
@@ -479,7 +394,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1PlHWW2ES9aaXDm619-TlHhEw0rDN03oK/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=17JVqHvYglzwrILv7hhmF845-1Z-TEB14" alt="August 2024 Cover">
+        <img src="https://drive.google.com/thumbnail?id=17JVqHvYglzwrILv7hhmF845-1Z-TEB14" alt="August 2024 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">August 2024 Release</div>
         <div class="releasedescription">
           <p>1. Should I Take Calc AB or Calc BC?</p>
@@ -494,7 +409,7 @@
     <article class="release-card">
       <a href="https://drive.google.com/file/d/1dQaIBsus20a6I8nj0YpkUebhAHOth0mm/view?usp=sharing" target="_blank"
         class="release-link">
-        <img src="https://drive.google.com/thumbnail?id=1mhV4qOKYSItIXXnBAZ4RswF3OVRdbJTE" alt="July 2024 Cover">
+        <img src="https://drive.google.com/thumbnail?id=1mhV4qOKYSItIXXnBAZ4RswF3OVRdbJTE" alt="July 2024 Cover" loading="lazy" decoding="async">
         <div class="releasetitle">July 2024 Release</div>
         <div class="releasedescription">
           <p>1. Mathletes From Over 100 Nations Meet For the 65th IMO</p>
@@ -502,47 +417,50 @@
         </div>
       </a>
     </article>
-  </div>
+    </div>
 
-<footer>
-  <p>&copy; 2026 MathEXplained. All rights reserved.</p>
-</footer>
+    <p class="archive-empty" hidden>No issues match that search.
+      <strong>Please try a different query.</strong></p>
+  </main>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const cards = Array.from(document.querySelectorAll('.release-card'));
-  const select = document.getElementById('year-filter-select');
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="logo.webp" width="48" height="48">
+        <div class="site-title">Math<span class="accent">EX</span>plained</div>
+        <p class="footer-tagline">A student-run magazine making mathematics readable &mdash;
+          one monthly issue at a time.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Past Releases</a></li>
+            <li><a href="crossword.html">Crossword</a></li>
+            <li><a href="about_us.html">About Us</a></li>
+            <li><a href="staff.html">Staff</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Get involved</h4>
+          <ul>
+            <li><a href="apply.html">Apply to join</a></li>
+            <li><a href="https://groups.google.com/g/mathexplained-magazine-releases"
+                target="_blank" rel="noopener">Mailing list</a></li>
+            <li><a href="https://discord.com/invite/Fnhwbzfpfz"
+                target="_blank" rel="noopener">Discord</a></li>
+            <li><a href="https://www.instagram.com/mathexplainedmagazine"
+                target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p>&copy; 2026 MathEXplained. All rights reserved.</p>
+  </footer>
 
-  // Derive unique years from `.releasetitle` text
-  const years = Array.from(new Set(cards.map(c => {
-    const t = c.querySelector('.releasetitle')?.textContent || '';
-    const m = t.match(/\b(20\d{2})\b/);
-    return m ? m[1] : null;
-  }).filter(Boolean))).sort((a,b)=>b-a);
-
-  // Populate select with years
-  years.forEach(year => {
-    const opt = document.createElement('option');
-    opt.value = year;
-    opt.textContent = year;
-    select.appendChild(opt);
-  });
-
-  function applyFilter() {
-    const val = select.value;
-    cards.forEach(card => {
-      const title = (card.querySelector('.releasetitle')?.textContent || '').trim();
-      if (val === 'all' || title.includes(val)) {
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  }
-
-  select.addEventListener('change', applyFilter);
-});
-</script>
+  <!-- Swaps every [data-lucide] placeholder for its inline <svg>. Deferred scripts
+       run in order before DOMContentLoaded, so lucide is defined by the time this fires. -->
+  <script>window.addEventListener('DOMContentLoaded', function () { window.lucide && lucide.createIcons(); });</script>
 
 </body>
 </html>
