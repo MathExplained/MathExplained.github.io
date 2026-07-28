@@ -5,165 +5,55 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About Us - MathEXplained Magazine</title>
+  <meta name="description" content="Who we are: MathEXplained is a student-run monthly magazine that makes mathematics readable for a broader audience." />
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400..700&display=swap">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://unpkg.com">
+
+  <!-- Pre-rendered SVG for the decorative background; no MathJax runtime needed. -->
+  <script src="math-symbols.js" defer></script>
+  <script src="background.js" defer></script>
+  <script src="site.js" defer></script>
 </head>
 
 <body class="about-page with-header-gap">
+  <a class="skip-link" href="#main">Skip to content</a>
   <canvas id="proximity-grid" aria-hidden="true"></canvas>
-  <script>
-  (function(){
-    var canvas = document.getElementById('proximity-grid');
-    if (!canvas) return;
-    var ctx = canvas.getContext('2d');
-    var mouse = { x: -9999, y: -9999 };
-    var CELL = 36;
-    var RADIUS = 180;
-    var BASE_ALPHA = 0.045;
-    var GLOW_ALPHA = 0.72;
-
-    function resize() {
-      canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      var cols = Math.ceil(canvas.width  / CELL) + 1;
-      var rows = Math.ceil(canvas.height / CELL) + 1;
-
-      for (var r = 0; r < rows; r++) {
-        for (var c = 0; c < cols; c++) {
-          var x = c * CELL;
-          var y = r * CELL;
-          var dx = x - mouse.x;
-          var dy = y - mouse.y;
-          var dist = Math.sqrt(dx * dx + dy * dy);
-          var proximity = Math.max(0, 1 - dist / RADIUS);
-          var alpha = BASE_ALPHA + proximity * proximity * (GLOW_ALPHA - BASE_ALPHA);
-
-          ctx.beginPath();
-          ctx.arc(x, y, 1.4, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(84, 145, 209,' + alpha.toFixed(3) + ')';
-          ctx.fill();
-        }
-      }
-
-      ctx.setLineDash([]);
-      for (var r2 = 0; r2 < rows; r2++) {
-        var y2 = r2 * CELL;
-        ctx.beginPath();
-        ctx.moveTo(0, y2);
-        ctx.lineTo(canvas.width, y2);
-        var distH = Math.abs(mouse.y - y2);
-        var pxH = Math.max(0, 1 - distH / RADIUS);
-        ctx.strokeStyle = 'rgba(84, 145, 209,' + (BASE_ALPHA * 0.7 + pxH * pxH * 0.30).toFixed(3) + ')';
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
-      for (var c2 = 0; c2 < cols; c2++) {
-        var x2 = c2 * CELL;
-        ctx.beginPath();
-        ctx.moveTo(x2, 0);
-        ctx.lineTo(x2, canvas.height);
-        var distV = Math.abs(mouse.x - x2);
-        var pxV = Math.max(0, 1 - distV / RADIUS);
-        ctx.strokeStyle = 'rgba(84, 145, 209,' + (BASE_ALPHA * 0.7 + pxV * pxV * 0.30).toFixed(3) + ')';
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
-    }
-
-    function loop() { draw(); requestAnimationFrame(loop); }
-
-    window.addEventListener('mousemove', function(e){ mouse.x = e.clientX; mouse.y = e.clientY; });
-    window.addEventListener('touchmove', function(e){ if(e.touches[0]){ mouse.x=e.touches[0].clientX; mouse.y=e.touches[0].clientY; } }, {passive:true});
-    window.addEventListener('resize', resize);
-    resize();
-    loop();
-  })();
-  </script>
   <div class="math-bg-layer" aria-hidden="true"></div>
-  <script>
-  (function(){
-    const symbols = [
-  "$\\pi$", "$e$", "$i$", "$\\infty$", "$\\Sigma$", "$\\int$", "$\\sqrt{}$", 
-  "$dx$", "$\\Delta$", "$\\nabla$", "$\\alpha$", "$\\beta$", "$\\gamma$", 
-  "$\\lambda$", "$\\mu$", "$\\theta$", "$\\varphi$", "$\\psi$", "$\\emptyset$", 
-  "$\\in$", "$\\Omega$", "$f(x)$", "$n!$", "$x^2$", "$2\\pi r$", "$\\pi r^2$", 
-  "$a^2+b^2=c^2$", "$\\lim$", "$\\log n$", "$P(A|B)$", "$\\det(A)$", 
-  "$\\oint$", "$\\bmod p$", "$C(n,k)$", "$\\gcd$", "$\\operatorname{lcm}$", 
-  "$\\mathbb{N}$", "$\\mathbb{Z}$", "$\\mathbb{Q}$", "$\\mathbb{R}$", 
-  "$\\mathbb{C}$", "$\\mathbb{P}$", "$\\mathbb{H}$", "$\\sigma^2$", 
-  "$E[X]$", "$\\operatorname{Var}(X)$", "$\\sin^2+\\cos^2=1$", "$=$", 
-  "$\\neq$", "$\\approx$", "$\\cong$", "$\\simeq$", "$\\leq$", "$\\geq$", 
-  "$\\frac{d}{dx}$", "$ax^2+bx+c$", "$y=mx+b$", "$e^{i\\pi}+1=0$"
-];
-    var layer=document.querySelector(".math-bg-layer");
-    if(!layer)return;
-    for(var k=0;k<58;k++){
-      (function(idx){
-        var el=document.createElement("span");
-        el.className="math-symbol";
-        el.textContent=symbols[idx%symbols.length];
-        var size=0.85+Math.random()*1.5;
-        var dur=22+Math.random()*30;
-        var delay=-(Math.random()*dur);
-        var left=Math.random()*98;
-        var rot=(Math.random()-0.5)*50;
-        el.style.cssText="left:"+left+"%;font-size:"+size+"rem;animation-duration:"+dur+"s;animation-delay:"+delay+"s;--rot:"+rot+"deg;";
-        layer.appendChild(el);
-      })(k+Math.floor(Math.random()*symbols.length));
-    }
-    function renderSymbolsWhenReady(){
-      var s = document.getElementById('MathJax-script');
-      function renderAll(){
-        var els = layer.querySelectorAll('.math-symbol');
-        els.forEach(function(el){
-          var tex = (el.textContent||'').trim();
-          if (tex.startsWith('$') && tex.endsWith('$')) tex = tex.slice(1,-1);
-          if (!tex) return;
-          if (window.MathJax && MathJax.tex2chtmlPromise) {
-            MathJax.tex2chtmlPromise(tex, {display:false}).then(function(node){ el.innerHTML=''; el.appendChild(node); }).catch(function(){ /* leave raw */ });
-          }
-        });
-      }
-      if (window.MathJax && MathJax.tex2chtmlPromise) renderAll();
-      else if (s) s.addEventListener('load', renderAll);
-    }
-    renderSymbolsWhenReady();
-  })();
-  </script>
   <div class="announcement-banner">📣 Join our Google Group for exclusive email updates! <a href="https://groups.google.com/g/mathexplained-magazine-releases" target="_blank">Learn more...</a></div>
   <header class="headerbar">
-    <div class="site-title">MathEXplained</div>
-    <nav class="nav-right">
+    <a class="brand" href="index.html">
+      <img src="logo.webp" width="48" height="48">
+      <span class="site-title">Math<span class="accent">EX</span>plained</span>
+    </a>
+    <nav class="nav-right" aria-label="Primary">
       <a href="index.html">Past Releases</a>
       <a href="about_us.html">About Us</a>
       <a href="staff.html">Staff</a>
       <a href="crossword.html">Crossword</a>
-      <a href="apply.html">APPLY!</a>
+      <a href="apply.html" class="nav-cta">APPLY!</a>
       <a href="https://discord.com/invite/Fnhwbzfpfz" target="_blank" class="navlink">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Join us on Discord"
-          class="discord-icon">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Join us on Discord" class="discord-icon">
       </a>
       <a href="https://www.instagram.com/mathexplainedmagazine" target="_blank" class="navlink">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"
-          alt="Follow us on Instagram" class="instagram-icon">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Follow us on Instagram" class="instagram-icon">
       </a>
     </nav>
   </header>
 
-  <main class="container">
+  <main class="container" id="main">
     <h1>About Us</h1>
 
-    <img src="stat_pic.png" alt="math illustration" class="center-image">
+    <p class="lead"><strong>M</strong>ath<strong>EX</strong>plained <strong>MAGAZINE</strong> aims to be a monthly
+      newsletter that publishes articles in a newspaper-style format about various math-related subjects in a way
+      which can appeal to a broader audience. Topics may range from trending news stories within the math community
+      to in-depth dissections of niche and interesting mathematical topics for more advanced readers.</p>
 
-    <p><strong>M</strong>ath<strong>EX</strong>plained <strong>MAGAZINE</strong> aims to be a monthly newsletter that
-      publishes articles in a newspaper-style format about various math-related subjects in a way which can appeal to a
-      broader audience. Topics may range from trending news stories within the math community to in-depth dissections of
-      niche and interesting mathematical topics for more advanced readers.</p>
+    <img src="stat_pic.png" alt="math illustration" class="center-image" loading="lazy">
 
     <h2>Our Goal</h2>
     <p>While many in the math community might feel as if math is something super familiar to us, the truth is that this
@@ -172,15 +62,71 @@
       organization is to promote mathematics by dissecting contemporary issues, covering interesting topics, and
       painting the field as fun and easy to get into.</p>
 
-    <h2>Join Us</h2>
-    <p>Whether you're a student, educator, or enthusiast, we'd love to have you on board. Check out our <a href="apply.html">application page</a> to learn more about how you can get involved. Or, you can join our <a href="https://groups.google.com/g/mathexplained-magazine-releases" target="_blank">mailing list</a> for exclusive updates!</p>
+    <p class="pullquote">Math doesn&rsquo;t need to be made simpler &mdash; it needs to be made readable.</p>
 
-    <a href="index.html" class="back-link">← Back to Home</a>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon" aria-hidden="true">📅</div>
+        <h3>Monthly releases</h3>
+        <p>A new release every month since July 2024, free to read and free to share.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon" aria-hidden="true">🧩</div>
+        <h3>Puzzles included</h3>
+        <p>All releases close with an original crossword you can play right here on the site.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon" aria-hidden="true">🌍</div>
+        <h3>Student-run</h3>
+        <p>Written, edited, and designed entirely by students from around the world.</p>
+      </div>
+    </div>
+
+    <h2>Join Us</h2>
+    <p>Whether you're a student, educator, or enthusiast, we'd love to have you on board. Check out our <a href="apply.html">application page</a> to learn more about how you can get involved. Or, you can join our <a href="https://groups.google.com/g/mathexplained-magazine-releases" target="_blank" rel="noopener">mailing list</a> for exclusive updates!</p>
+
+    <div class="hero-actions" style="margin: 2rem 0 0.5rem;">
+      <a class="btn btn-primary" href="apply.html">Apply to join</a>
+      <a class="btn btn-ghost" href="index.html">Read past issues</a>
+    </div>
+
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
   </main>
 
-<footer>
-  <p>&copy; 2026 MathEXplained. All rights reserved.</p>
-</footer>
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="logo.webp" width="48" height="48">
+        <div class="site-title">Math<span class="accent">EX</span>plained</div>
+        <p class="footer-tagline">A student-run magazine making mathematics readable &mdash;
+          one monthly issue at a time.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Past Releases</a></li>
+            <li><a href="crossword.html">Crossword</a></li>
+            <li><a href="about_us.html">About Us</a></li>
+            <li><a href="staff.html">Staff</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Get involved</h4>
+          <ul>
+            <li><a href="apply.html">Apply to join</a></li>
+            <li><a href="https://groups.google.com/g/mathexplained-magazine-releases"
+                target="_blank" rel="noopener">Mailing list</a></li>
+            <li><a href="https://discord.com/invite/Fnhwbzfpfz"
+                target="_blank" rel="noopener">Discord</a></li>
+            <li><a href="https://www.instagram.com/mathexplainedmagazine"
+                target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p>&copy; 2026 MathEXplained. All rights reserved.</p>
+  </footer>
 
 </body>
 </html>
