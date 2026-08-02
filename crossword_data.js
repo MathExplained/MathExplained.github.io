@@ -100,4 +100,10 @@ var crosswordData = [
     problemPdf: "2026_06-07P.pdf",
     solutionPdf: "2026_06-07S.pdf",
   },
+  {
+    name: "August 2026",
+    answer: ["6", "3", "5", "3"],
+    problemPdf: "2026_08P.pdf",
+    solutionPdf: "2026_08S.pdf",
+  },
 ];
