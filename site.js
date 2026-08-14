@@ -208,6 +208,8 @@
       var m = title.match(/\b(20\d{2})\b/);
       card.dataset.year = m ? m[1] : '';
       card.dataset.haystack = (title + ' ' + bodyOf(card)).toLowerCase();
+      // Normalize collab attribute so checks are predictable. Do NOT mark any cards here.
+      card.dataset.collab = card.dataset.collab === 'true' ? 'true' : '';
     });
 
     var years = Array.from(new Set(cards.map(function (c) { return c.dataset.year; })))
@@ -215,6 +217,7 @@
       .sort(function (a, b) { return b - a; });
 
     var activeYear = 'all';
+    var activeCollab = 'all'; // 'all' or 'only'
 
     function makePill(value, label) {
       var b = document.createElement('button');
@@ -227,25 +230,53 @@
       b.addEventListener('click', function () {
         activeYear = value;
         pillBox.querySelectorAll('.filter-pill').forEach(function (p) {
-          var on = p === b;
-          p.classList.toggle('is-active', on);
-          p.setAttribute('aria-pressed', String(on));
+          // Only toggle year pills here — collab pill handled separately below.
+          if (p.dataset.year !== undefined && p.dataset.year !== '') {
+            var on = p === b;
+            p.classList.toggle('is-active', on);
+            p.setAttribute('aria-pressed', String(on));
+          }
         });
         apply();
       });
       return b;
     }
 
+    // Year pills (unchanged behaviour)
     pillBox.appendChild(makePill('all', 'All years'));
     years.forEach(function (y) { pillBox.appendChild(makePill(y, y)); });
+
+    // Collaboration pill — same visual style as year pills
+    var collabPill = document.createElement('button');
+    collabPill.type = 'button';
+    collabPill.className = 'filter-pill';
+    collabPill.dataset.collab = 'only';
+    collabPill.textContent = 'Collaborations';
+    collabPill.setAttribute('aria-pressed', 'false');
+
+    collabPill.addEventListener('click', function () {
+      // Toggle between showing only collaborations and showing all
+      activeCollab = activeCollab === 'only' ? 'all' : 'only';
+      collabPill.classList.toggle('is-active', activeCollab === 'only');
+      collabPill.setAttribute('aria-pressed', String(activeCollab === 'only'));
+      apply();
+    });
+
+    // Keep the same styling as the other pills; slight separation so it doesn't
+    // visually merge with the year buttons (optional but subtle).
+    collabPill.style.marginLeft = '0.6rem';
+    pillBox.appendChild(collabPill);
 
     function apply() {
       var q = (search && search.value || '').trim().toLowerCase();
       var shown = 0;
 
       cards.forEach(function (card) {
-        var ok = (activeYear === 'all' || card.dataset.year === activeYear) &&
-                 (!q || card.dataset.haystack.indexOf(q) !== -1);
+        var yearOk = (activeYear === 'all' || card.dataset.year === activeYear);
+        var textOk = (!q || card.dataset.haystack.indexOf(q) !== -1);
+        var collabOk = (activeCollab === 'all') || (activeCollab === 'only' && card.dataset.collab === 'true');
+
+        var ok = yearOk && textOk && collabOk;
         card.hidden = !ok;
         if (ok) shown++;
       });
