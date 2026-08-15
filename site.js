@@ -111,29 +111,6 @@
     });
   })();
 
-  /* ---------- Hero stats, counted from the page ----------
-     Derived rather than hard-coded so the numbers stay honest
-     when a new release card is added to index.html. The markup
-     carries the current values as a no-JS fallback. */
-  (function heroStats() {
-    var cards = document.querySelectorAll('.release-card');
-    if (!cards.length) return;
-
-    var issues = document.querySelector('[data-stat="issues"]');
-    var articles = document.querySelector('[data-stat="articles"]');
-
-    if (issues) issues.textContent = String(cards.length);
-    if (articles) {
-      var total = 0;
-      cards.forEach(function (c) {
-        total += c.querySelectorAll('.releasedescription p').length;
-      });
-      // Round down to the nearest 10 and show it as a floor, so the
-      // headline number reads as a claim we comfortably clear.
-      articles.textContent = total >= 20 ? (Math.floor(total / 10) * 10) + '+' : String(total);
-    }
-  })();
-
   /* ---------- Count the hero stats up from zero ----------
      Runs after heroStats has written the real figures, so the target is
      whatever is in the DOM — derived or hard-coded, with any '+' suffix
@@ -206,10 +183,10 @@
     cards.forEach(function (card) {
       var title = titleOf(card);
       var m = title.match(/\b(20\d{2})\b/);
-      card.dataset.year = m ? m[1] : '';
+      card.dataset.year = card.classList.contains('exclusive-card') ? '2026' : (m ? m[1] : '');
       card.dataset.haystack = (title + ' ' + bodyOf(card)).toLowerCase();
-      // Normalize collab attribute so checks are predictable. Do NOT mark any cards here.
-      card.dataset.collab = card.dataset.collab === 'true' ? 'true' : '';
+      // Normalize exclusive attribute so checks are predictable. Do NOT mark any cards here.
+      card.dataset.exclusive = card.dataset.exclusive === 'true' ? 'true' : '';
     });
 
     var years = Array.from(new Set(cards.map(function (c) { return c.dataset.year; })))
@@ -217,7 +194,7 @@
       .sort(function (a, b) { return b - a; });
 
     var activeYear = 'all';
-    var activeCollab = 'all'; // 'all' or 'only'
+    var activeexclusive = 'all'; // 'all' or 'only'
 
     function makePill(value, label) {
       var b = document.createElement('button');
@@ -230,7 +207,7 @@
       b.addEventListener('click', function () {
         activeYear = value;
         pillBox.querySelectorAll('.filter-pill').forEach(function (p) {
-          // Only toggle year pills here — collab pill handled separately below.
+          // Only toggle year pills here — exclusive pill handled separately below.
           if (p.dataset.year !== undefined && p.dataset.year !== '') {
             var on = p === b;
             p.classList.toggle('is-active', on);
@@ -246,26 +223,26 @@
     pillBox.appendChild(makePill('all', 'All years'));
     years.forEach(function (y) { pillBox.appendChild(makePill(y, y)); });
 
-    // Collaboration pill — same visual style as year pills
-    var collabPill = document.createElement('button');
-    collabPill.type = 'button';
-    collabPill.className = 'filter-pill';
-    collabPill.dataset.collab = 'only';
-    collabPill.textContent = 'Collaborations';
-    collabPill.setAttribute('aria-pressed', 'false');
+    // exclusive pill — same visual style as year pills
+    var exclusivePill = document.createElement('button');
+    exclusivePill.type = 'button';
+    exclusivePill.className = 'filter-pill';
+    exclusivePill.dataset.exclusive = 'only';
+    exclusivePill.textContent = 'Exclusive';
+    exclusivePill.setAttribute('aria-pressed', 'false');
 
-    collabPill.addEventListener('click', function () {
-      // Toggle between showing only collaborations and showing all
-      activeCollab = activeCollab === 'only' ? 'all' : 'only';
-      collabPill.classList.toggle('is-active', activeCollab === 'only');
-      collabPill.setAttribute('aria-pressed', String(activeCollab === 'only'));
+    exclusivePill.addEventListener('click', function () {
+      // Toggle between showing only exclusives and showing all
+      activeexclusive = activeexclusive === 'only' ? 'all' : 'only';
+      exclusivePill.classList.toggle('is-active', activeexclusive === 'only');
+      exclusivePill.setAttribute('aria-pressed', String(activeexclusive === 'only'));
       apply();
     });
 
     // Keep the same styling as the other pills; slight separation so it doesn't
     // visually merge with the year buttons (optional but subtle).
-    collabPill.style.marginLeft = '0.6rem';
-    pillBox.appendChild(collabPill);
+    exclusivePill.style.backgroundColor = 'var(--gold-soft)';
+    pillBox.appendChild(exclusivePill);
 
     function apply() {
       var q = (search && search.value || '').trim().toLowerCase();
@@ -274,9 +251,16 @@
       cards.forEach(function (card) {
         var yearOk = (activeYear === 'all' || card.dataset.year === activeYear);
         var textOk = (!q || card.dataset.haystack.indexOf(q) !== -1);
-        var collabOk = (activeCollab === 'all') || (activeCollab === 'only' && card.dataset.collab === 'true');
+        var isexclusiveCard = card.dataset.exclusive === 'true';
+        var exclusiveOk = isexclusiveCard ? (activeexclusive === 'only') : (activeexclusive === 'all');
 
-        var ok = yearOk && textOk && collabOk;
+        // exclusive cards are intentionally hidden until the user primes the filter by
+        // selecting the exclusive pill; once selected, year filtering continues to work.
+        if (isexclusiveCard && activeexclusive !== 'only') {
+          exclusiveOk = false;
+        }
+
+        var ok = yearOk && textOk && exclusiveOk;
         card.hidden = !ok;
         if (ok) shown++;
       });
