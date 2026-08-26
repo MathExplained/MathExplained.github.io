@@ -19,7 +19,7 @@ var crosswordData = [
   },
   {
     name: "December 2024",
-    answer: ["", "", "", ""],
+    answer: ["1", "3", "0", "0", "6", "3", "2", "4", "8"],
     problemPdf: "2024_12P.pdf",
     solutionPdf: "2024_12S.pdf",
     size: [3, 3]
