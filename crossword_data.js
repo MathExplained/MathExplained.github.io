@@ -122,4 +122,11 @@ var crosswordData = [
     solutionPdf: "2026_08S.pdf",
     size: [2, 2]
   },
+  {
+    name: "September 2026",
+    answer: ["3", "1", "6", "9", "3", "8", "9", "6", "0"],
+    problemPdf: "2026_09P.pdf",
+    solutionPdf: "2026_09S.pdf",
+    size: [3, 3]
+  },
 ];
