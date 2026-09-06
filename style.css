@@ -731,7 +731,9 @@ main.container > p:first-of-type { font-size: 1.1rem; }
   box-shadow: var(--shadow-lg);
 }
 .cell {
-  position: relative; width: 240px; height: 240px;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
   background: rgba(255,255,255,0.92);
   display: flex; align-items: center; justify-content: center;
   transition: background 0.2s var(--ease);
@@ -747,14 +749,24 @@ main.container > p:first-of-type { font-size: 1.1rem; }
   text-align: center; font-size: 4rem; font-family: var(--font-display);
   font-weight: 700; color: var(--navy-800); outline: none; -webkit-appearance: none;
   text-transform: uppercase;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
 }
+
 .cell input::-webkit-outer-spin-button,
 .cell input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
-.grid .cell:nth-child(odd)  { border-right:  1px solid rgba(20, 36, 60, 0.28); }
-.grid .cell:nth-child(-n+2) { border-bottom: 1px solid rgba(20, 36, 60, 0.28); }
+.grid .cell {
+  border: 0.5px solid rgba(20, 36, 60, 0.28);
+}
 
-.controls { display: flex; gap: 0.5rem; align-items: center; }
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
 
 .submit-btn {
   margin-top: 1rem; padding: 0.55rem 1.4rem; font-family: var(--font-body);
