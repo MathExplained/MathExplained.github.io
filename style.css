@@ -182,7 +182,7 @@ svg[hidden] { display: none; }
 
 /* ---------- Z-index above background ---------- */
 header, main, footer, .year-filter, .grid-container, .hero, .archive-toolbar,
-.archive-empty, .staff-intro, body > h2, .section-head { position: relative; z-index: 1; }
+.archive-empty, .staff-intro, .staff-toolbar, body > h2, .section-head { position: relative; z-index: 1; }
 
 /* ---------- Typography ---------- */
 h1, h2, h3, .site-title, .releasetitle, .staff-name, .modal-name {
@@ -817,6 +817,19 @@ body > h2::before, body > h2::after {
   content: ''; flex: 1; height: 1px; background: var(--rule);
 }
 
+/* Role filter. Reuses the archive's pill styling so the two toolbars match. */
+.staff-toolbar {
+  max-width: var(--grid-max); margin: 0.5rem auto 0;
+  padding: 0.75rem 1.5rem 0.25rem;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  justify-content: center;
+}
+.staff-toolbar .filter-pills { justify-content: center; }
+.staff-count {
+  font-size: 0.85rem; font-weight: 600; color: var(--muted);
+  margin: 0; flex-basis: 100%; text-align: center;
+}
+
 .grid-container.staff-grid {
   display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch;
   gap: 1.5rem; padding: 0.5em 1.5em 1.5em; max-width: var(--grid-max);
@@ -837,6 +850,7 @@ body > h2::before, body > h2::after {
   width: 244px; min-height: 244px;
   display: flex; flex-direction: column; justify-content: flex-start;
 }
+.staff-card[hidden] { display: none; }
 .staff-card::after {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: linear-gradient(90deg, var(--accent), #6d4bff, var(--gold));
@@ -1123,7 +1137,7 @@ footer p { margin: 0.35em 0; color: var(--muted); font-size: 0.88rem; font-weigh
 /* ---------- Print ---------- */
 @media print {
   #proximity-grid, .math-bg-layer, .announcement-banner,
-  .archive-toolbar, .hero-actions { display: none !important; }
+  .archive-toolbar, .staff-toolbar, .hero-actions { display: none !important; }
   body { padding-top: 0; background: #fff; }
   header, .headerbar { position: static; box-shadow: none; }
 }

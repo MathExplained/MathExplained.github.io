@@ -111,6 +111,70 @@
     });
   })();
 
+  /* ---------- Staff role filter (staff page only) ----------
+     Every staffer has one card carrying all of their roles in data-roles, so
+     somebody who writes and does PR shows up under both pills rather than being
+     filed under a single section. The pills are progressive enhancement: with
+     JS off the page is simply the full "All Staff" grid. */
+  (function staffRoles() {
+    var root = document.querySelector('[data-staff-filter]');
+    if (!root) return;
+
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.staff-card'));
+    var pills = Array.prototype.slice.call(root.querySelectorAll('.filter-pill'));
+    var heading = document.getElementById('staff-heading');
+    var countEl = document.getElementById('staff-count');
+    if (!cards.length || !pills.length) return;
+
+    // Pad both ends so ' pr ' can't match inside another role token.
+    cards.forEach(function (card) {
+      card.dataset.roleList = ' ' + (card.dataset.roles || '').trim() + ' ';
+    });
+
+    // `interactive` is false for the initial render, so the first paint keeps the
+    // scroll-in reveal that every other card grid on the site gets.
+    function show(pill, interactive) {
+      var role = pill.dataset.role;
+      var shown = 0;
+
+      cards.forEach(function (card) {
+        var ok = role === 'all' || card.dataset.roleList.indexOf(' ' + role + ' ') !== -1;
+        card.hidden = !ok;
+        // A card filtered out before it ever scrolled into view never got its
+        // reveal, and would come back invisible. Settle anything on screen now.
+        if (ok && interactive) card.classList.add('is-revealed');
+        if (ok) shown++;
+      });
+
+      pills.forEach(function (p) {
+        var on = p === pill;
+        p.classList.toggle('is-active', on);
+        p.setAttribute('aria-pressed', String(on));
+      });
+
+      if (heading) heading.textContent = pill.textContent.trim();
+      if (countEl) {
+        countEl.textContent = shown + (shown === 1 ? ' staff member' : ' staff members');
+      }
+
+      // Keep the view shareable. A query string rather than a hash, because the
+      // staff modals own the hash.
+      if (interactive && window.history && history.replaceState) {
+        var url = location.pathname + (role === 'all' ? '' : '?role=' + role) + location.hash;
+        // Throws on a file:// origin; the filter itself has already applied.
+        try { history.replaceState(null, '', url); } catch (e) { /* non-http origin */ }
+      }
+    }
+
+    pills.forEach(function (pill) {
+      pill.addEventListener('click', function () { show(pill, true); });
+    });
+
+    var requested = (location.search.match(/[?&]role=([\w-]+)/) || [])[1];
+    var start = requested && pills.filter(function (p) { return p.dataset.role === requested; })[0];
+    show(start || pills[0], false);
+  })();
+
   /* ---------- Count the hero stats up from zero ----------
      Runs after heroStats has written the real figures, so the target is
      whatever is in the DOM — derived or hard-coded, with any '+' suffix

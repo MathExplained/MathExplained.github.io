@@ -12,7 +12,6 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400..700&display=swap">
   <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="https://unpkg.com">
 
   <!-- Pre-rendered SVG for the decorative background; no MathJax runtime needed. -->
   <script src="math-symbols.js" defer></script>
@@ -24,10 +23,10 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <canvas id="proximity-grid" aria-hidden="true"></canvas>
   <div class="math-bg-layer" aria-hidden="true"></div>
-  <div class="announcement-banner">📣 Join our Google Group for exclusive email updates! <a href="https://groups.google.com/g/mathexplained-magazine-releases" target="_blank">Learn more...</a></div>
+  <div class="announcement-banner">📣 Join our Google Group for exclusive email updates! <a href="https://groups.google.com/g/mathexplained-magazine-releases" target="_blank" rel="noopener">Learn more...</a></div>
   <header class="headerbar">
     <a class="brand" href="index.html">
-      <img src="assets/logo.webp" width="48" height="48">
+      <img src="assets/logo.webp" alt="" width="48" height="48">
       <span class="site-title">Math<span class="accent">EX</span>plained</span>
     </a>
     <nav class="nav-right" aria-label="Primary">
@@ -36,10 +35,10 @@
       <a href="staff.html">Staff</a>
       <a href="crossword.html">Crossword</a>
       <a href="apply.html" class="nav-cta">APPLY!</a>
-      <a href="https://discord.com/invite/Fnhwbzfpfz" target="_blank" class="navlink">
+      <a href="https://discord.com/invite/Fnhwbzfpfz" target="_blank" rel="noopener" class="navlink">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Join us on Discord" class="discord-icon">
       </a>
-      <a href="https://www.instagram.com/mathexplainedmagazine" target="_blank" class="navlink">
+      <a href="https://www.instagram.com/mathexplainedmagazine" target="_blank" rel="noopener" class="navlink">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Follow us on Instagram" class="instagram-icon">
       </a>
     </nav>
@@ -47,136 +46,50 @@
 
   <main class="container staff-intro" id="main">
     <h1>Meet Our Staff</h1>
-    <p style="text-align: center; max-width: 600px; font-size: 1.1rem; color: #233248;">
-      We have a dedicated team that actively collaborates to produce the highest-quality math spreads. Click on any staff member below to learn more about them.
+    <p style="text-align: center; max-width: 600px; font-size: 1.1rem; color: var(--ink)">
+      We have a dedicated team that actively collaborates to produce the highest-quality math spreads. Most of our staffers wear more than one hat, so pick a role below to see everyone who works on it. Click on any staff member to learn more about them.
     </p>
   </main>
 
-  <h2>Editor-in-Chief</h2>
-  <div class="grid-container staff-grid">
-    <a href="#kevin-c" class="staff-card">
-      <img src="assets/staff_info/Kevin_C.webp" alt="Kevin C." class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
-      <h3 class="staff-name">Kevin C.</h3>
-      <div class="staff-position">
-        <p>Editor-in-Chief</p>
-        <p>Writer</p>
-        <p>Public Relations</p>
-      </div>
-    </a>
-    <a href="#sophia" class="staff-card">
-      <img src="assets/staff_info/person_placeholder.png" alt="Sophia" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
-      <h3 class="staff-name">Sophia</h3>
-      <div class="staff-position">
-        <p>Editor-in-Chief</p>
-        <p>Writer</p>
-        <p>Public Relations</p>
-      </div>
-    </a>
+  <!-- One card per person, filtered by role. A staffer belongs to every role
+       listed in their data-roles, so the same card shows up under each of them
+       instead of being pinned to a single section. -->
+  <div class="staff-toolbar" data-staff-filter>
+    <div class="filter-pills">
+      <button type="button" class="filter-pill is-active" data-role="all" aria-pressed="true">All Staff</button>
+      <button type="button" class="filter-pill" data-role="field-ops" aria-pressed="false">Director of Field Operations</button>
+      <button type="button" class="filter-pill" data-role="writer" aria-pressed="false">Writer</button>
+      <button type="button" class="filter-pill" data-role="editor" aria-pressed="false">Editor</button>
+      <button type="button" class="filter-pill" data-role="problem-writer" aria-pressed="false">Problem Writer</button>
+      <button type="button" class="filter-pill" data-role="webmaster" aria-pressed="false">Webmaster</button>
+      <button type="button" class="filter-pill" data-role="pr" aria-pressed="false">Public Relations</button>
+    </div>
+    <p class="staff-count" id="staff-count" aria-live="polite"></p>
   </div>
 
-  <h2>Director of Field Operations</h2>
+  <h2 id="staff-heading">All Staff</h2>
   <div class="grid-container staff-grid">
-    <a href="#nico" class="staff-card">
-      <img src="assets/staff_info/Nico.webp" alt="Nico" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
-      <h3 class="staff-name">Nico</h3>
-      <div class="staff-position">
-        <p>Managing Editor</p>
-        <p>Writer</p>
-      </div>
-    </a>
-    <a href="#aaron" class="staff-card">
+    <a href="#aaron" class="staff-card" data-roles="field-ops webmaster writer problem-writer">
       <img src="assets/staff_info/Aaron.jpg" alt="Aaron" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
       <h3 class="staff-name">Aaron</h3>
       <div class="staff-position">
         <p>Director of Web Dev</p>
         <p>Webmaster</p>
         <p>Writer</p>
+        <p>Problem Writer</p>
       </div>
     </a>
-    <a href="#annie" class="staff-card">
+    <a href="#annie" class="staff-card" data-roles="field-ops editor writer pr">
       <img src="assets/staff_info/Annie.webp" alt="Annie" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
       <h3 class="staff-name">Annie</h3>
       <div class="staff-position">
         <p>PR Director</p>
-        <p>Writer</p>
         <p>Editor</p>
-      </div>
-    </a>
-  </div>
-
-  <h2>Webmaster</h2>
-  <div class="grid-container staff-grid">
-    <a href="#michelle" class="staff-card">
-      <img src="assets/staff_info/Michelle.webp" alt="Michelle" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
-      <h3 class="staff-name">Michelle</h3>
-      <div class="staff-position">
-        <p>Webmaster</p>
-      </div>
-    </a>
-    <a href="#david" class="staff-card">
-      <img src="assets/staff_info/person_placeholder.png" alt="David" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
-      <h3 class="staff-name">David</h3>
-      <div class="staff-position">
-        <p>Webmaster</p>
-        <p>Writer</p>
-      </div>
-    </a>
-  </div>
-
-  <h2>Writer</h2>
-  <div class="grid-container staff-grid">
-    <a href="#jessica" class="staff-card">
-      <img src="assets/staff_info/Jessica.webp" alt="Jessica" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
-      <h3 class="staff-name">Jessica</h3>
-      <div class="staff-position">
-        <p>Writer</p>
-        <p>Editor</p>
-      </div>
-    </a>
-    <a href="#sohum" class="staff-card">
-      <img src="assets/staff_info/Sohum.webp" alt="Sohum" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
-      <h3 class="staff-name">Sohum</h3>
-      <div class="staff-position">
-        <p>Writer</p>
-      </div>
-    </a>
-    <a href="#ethan" class="staff-card">
-      <img src="assets/staff_info/person_placeholder.png" alt="Ethan" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
-      <h3 class="staff-name">Ethan</h3>
-      <div class="staff-position">
-        <p>Writer</p>
-      </div>
-    </a>
-    <a href="#ritvik" class="staff-card">
-      <img src="assets/staff_info/Ritvik.webp" alt="Ritvik" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
-      <h3 class="staff-name">Ritvik</h3>
-      <div class="staff-position">
-        <p>Writer</p>
-      </div>
-    </a>
-    <a href="#reyansh" class="staff-card">
-      <img src="assets/staff_info/Reyansh.png" alt="Reyansh" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
-      <h3 class="staff-name">Reyansh</h3>
-      <div class="staff-position">
-        <p>Writer</p>
-      </div>
-    </a>
-    <a href="#iris" class="staff-card">
-      <img src="assets/staff_info/person_placeholder.png" alt="Iris" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
-      <h3 class="staff-name">Iris</h3>
-      <div class="staff-position">
-        <p>Writer</p>
-      </div>
-    </a>
-    <a href="#ranbeer" class="staff-card">
-      <img src="assets/staff_info/person_placeholder.png" alt="Ranbeer" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
-      <h3 class="staff-name">Ranbeer</h3>
-      <div class="staff-position">
         <p>Writer</p>
         <p>Public Relations</p>
       </div>
     </a>
-    <a href="#catherine" class="staff-card">
+    <a href="#catherine" class="staff-card" data-roles="writer pr">
       <img src="assets/staff_info/Catherine.webp" alt="Catherine" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
       <h3 class="staff-name">Catherine</h3>
       <div class="staff-position">
@@ -184,30 +97,121 @@
         <p>Public Relations</p>
       </div>
     </a>
-  </div>
-
-  <h2>Editor</h2>
-  <div class="grid-container staff-grid">
-    <a href="#margaret" class="staff-card">
-      <img src="assets/staff_info/Margaret.webp" alt="Margaret" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
-      <h3 class="staff-name">Margaret</h3>
+    <a href="#david" class="staff-card" data-roles="webmaster writer">
+      <img src="assets/staff_info/person_placeholder.png" alt="David" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
+      <h3 class="staff-name">David</h3>
       <div class="staff-position">
-        <p>Editor</p>
+        <p>Webmaster</p>
+        <p>Writer</p>
       </div>
     </a>
-  </div>
-
-  <h2>Public Relations</h2>
-  <div class="grid-container staff-grid">
-    <a href="#jaelyn" class="staff-card">
+    <a href="#ethan" class="staff-card" data-roles="writer">
+      <img src="assets/staff_info/person_placeholder.png" alt="Ethan" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
+      <h3 class="staff-name">Ethan</h3>
+      <div class="staff-position">
+        <p>Writer</p>
+      </div>
+    </a>
+    <a href="#iris" class="staff-card" data-roles="writer">
+      <img src="assets/staff_info/person_placeholder.png" alt="Iris" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
+      <h3 class="staff-name">Iris</h3>
+      <div class="staff-position">
+        <p>Writer</p>
+      </div>
+    </a>
+    <a href="#jaelyn" class="staff-card" data-roles="pr">
       <img src="assets/staff_info/Jaelyn.webp" alt="Jaelyn" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
       <h3 class="staff-name">Jaelyn</h3>
       <div class="staff-position">
         <p>Public Relations</p>
       </div>
     </a>
+    <a href="#jessica" class="staff-card" data-roles="editor writer">
+      <img src="assets/staff_info/Jessica.webp" alt="Jessica" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
+      <h3 class="staff-name">Jessica</h3>
+      <div class="staff-position">
+        <p>Editor</p>
+        <p>Writer</p>
+      </div>
+    </a>
+    <a href="#kevin-c" class="staff-card" data-roles="writer problem-writer">
+      <img src="assets/staff_info/Kevin_C.webp" alt="Kevin C." class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
+      <h3 class="staff-name">Kevin C.</h3>
+      <div class="staff-position">
+        <p>Editor-in-Chief</p>
+        <p>Writer</p>
+        <p>Problem Writer</p>
+      </div>
+    </a>
+    <a href="#margaret" class="staff-card" data-roles="editor">
+      <img src="assets/staff_info/Margaret.webp" alt="Margaret" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
+      <h3 class="staff-name">Margaret</h3>
+      <div class="staff-position">
+        <p>Editor</p>
+      </div>
+    </a>
+    <a href="#michelle" class="staff-card" data-roles="webmaster">
+      <img src="assets/staff_info/Michelle.webp" alt="Michelle" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
+      <h3 class="staff-name">Michelle</h3>
+      <div class="staff-position">
+        <p>Webmaster</p>
+      </div>
+    </a>
+    <a href="#nico" class="staff-card" data-roles="field-ops editor writer problem-writer">
+      <img src="assets/staff_info/Nico.webp" alt="Nico" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
+      <h3 class="staff-name">Nico</h3>
+      <div class="staff-position">
+        <p>Managing Editor</p>
+        <p>Editor</p>
+        <p>Writer</p>
+        <p>Problem Writer</p>
+      </div>
+    </a>
+    <a href="#ranbeer" class="staff-card" data-roles="writer pr">
+      <img src="assets/staff_info/person_placeholder.png" alt="Ranbeer" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
+      <h3 class="staff-name">Ranbeer</h3>
+      <div class="staff-position">
+        <p>Writer</p>
+        <p>Public Relations</p>
+      </div>
+    </a>
+    <a href="#reyansh" class="staff-card" data-roles="writer problem-writer">
+      <img src="assets/staff_info/Reyansh.png" alt="Reyansh" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
+      <h3 class="staff-name">Reyansh</h3>
+      <div class="staff-position">
+        <p>Writer</p>
+        <p>Problem Writer</p>
+      </div>
+    </a>
+    <a href="#ritvik" class="staff-card" data-roles="writer problem-writer">
+      <img src="assets/staff_info/Ritvik.webp" alt="Ritvik" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
+      <h3 class="staff-name">Ritvik</h3>
+      <div class="staff-position">
+        <p>Writer</p>
+        <p>Problem Writer</p>
+      </div>
+    </a>
+    <a href="#sohum" class="staff-card" data-roles="field-ops editor writer problem-writer">
+      <img src="assets/staff_info/Sohum.webp" alt="Sohum" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
+      <h3 class="staff-name">Sohum</h3>
+      <div class="staff-position">
+        <p>Problem Writing Director</p>
+        <p>Editor</p>
+        <p>Writer</p>
+        <p>Problem Writer</p>
+      </div>
+    </a>
+    <a href="#sophia" class="staff-card" data-roles="editor writer pr">
+      <img src="assets/staff_info/person_placeholder.png" alt="Sophia" class="staff-photo" loading="lazy" decoding="async" width="128" height="128">
+      <h3 class="staff-name">Sophia</h3>
+      <div class="staff-position">
+        <p>Editor-in-Chief</p>
+        <p>Editor</p>
+        <p>Writer</p>
+        <p>Public Relations</p>
+      </div>
+    </a>
   </div>
-
 
   <div class="staff-modal" id="aaron">
     <a href="#close" class="modal-backdrop-close" title="Close"></a>
@@ -215,195 +219,24 @@
       <a href="#close" class="modal-close-button" title="Close">&times;</a>
       <img src="assets/staff_info/Aaron.jpg" alt="Aaron" class="modal-photo" decoding="async" width="152" height="152">
       <h2 class="modal-name">Aaron</h2>
-      <h3 class="modal-title">Director of Web Dev / Webmaster / Writer</h3>
+      <h3 class="modal-title">Director of Web Dev / Webmaster / Writer / Problem Writer</h3>
       <p>
         Aaron is a junior at Westside High School in Houston, TX. His favorite math subject is algebra, which he reinforces through AP Calculus BC and AMC-style competitions. He is interested in creative problem-solving techniques and how theoretical math concepts intertwine with real-world systems in scientific realms. Outside of math, he enjoys researching, filmmaking, songwriting, and coding.
       </p>
     </div>
   </div>
-
   <div class="staff-modal" id="annie">
     <a href="#close" class="modal-backdrop-close" title="Close"></a>
     <div class="modal-content">
       <a href="#close" class="modal-close-button" title="Close">&times;</a>
       <img src="assets/staff_info/Annie.webp" alt="Annie" class="modal-photo" decoding="async" width="152" height="152">
       <h2 class="modal-name">Annie</h2>
-      <h3 class="modal-title">PR Director / Writer / Editor</h3>
+      <h3 class="modal-title">PR Director / Editor / Writer / Public Relations</h3>
       <p>
         "My name is Annie Wu and I go to Lynbrook High School. I am currently a senior and am interested in how math models analyze data in real life to understand markets. Outside of math I like to volunteer with animals and write."
       </p>
     </div>
   </div>
-
-  <div class="staff-modal" id="ethan">
-    <a href="#close" class="modal-backdrop-close" title="Close"></a>
-    <div class="modal-content">
-      <a href="#close" class="modal-close-button" title="Close">&times;</a>
-      <img src="assets/staff_info/person_placeholder.png" alt="Ethan" class="modal-photo" decoding="async" width="152" height="152">
-      <h2 class="modal-name">Ethan</h2>
-      <h3 class="modal-title">Writer</h3>
-      <p>
-        Ethan likes math and is a core member of the MathEXplained Magazine project.
-      </p>
-    </div>
-  </div>
-
-  <div class="staff-modal" id="kevin-c">
-    <a href="#close" class="modal-backdrop-close" title="Close"></a>
-    <div class="modal-content">
-      <a href="#close" class="modal-close-button" title="Close">&times;</a>
-      <img src="assets/staff_info/Kevin_C.webp" alt="Kevin C." class="modal-photo" decoding="async" width="152" height="152">
-      <h2 class="modal-name">Kevin C.</h2>
-      <h3 class="modal-title">Editor-in-Chief / Writer / Public Relations</h3>
-      <p>
-        Kevin Chen is a junior at Ridge High School in New Jersey. Kevin's favorite areas of interest in math are computational algebra and geometry. Moreover, he also enjoys playing tennis and making music.
-      </p>
-    </div>
-  </div>
-
-  <div class="staff-modal" id="margaret">
-    <a href="#close" class="modal-backdrop-close" title="Close"></a>
-    <div class="modal-content">
-      <a href="#close" class="modal-close-button" title="Close">&times;</a>
-      <img src="assets/staff_info/Margaret.webp" alt="Margaret" class="modal-photo" decoding="async" width="152" height="152">
-      <h2 class="modal-name">Margaret</h2>
-      <h3 class="modal-title">Editor</h3>
-      <p>
-        Margaret is a homeschooled student in a charter school who loves all things math—particularly problems with a roundabout visual solution. She's been participating in math competitions since middle school, with her favorite competition being USAMTS due to its proof-based questions and extended timeframe. Other than math, her hobbies include reading, photography, teaching, and getting an endless list of media recommendations while never watching them.
-      </p>
-    </div>
-  </div>
-
-  <div class="staff-modal" id="nico">
-    <a href="#close" class="modal-backdrop-close" title="Close"></a>
-    <div class="modal-content">
-      <a href="#close" class="modal-close-button" title="Close">&times;</a>
-      <img src="assets/staff_info/Nico.webp" alt="Nico" class="modal-photo" decoding="async" width="152" height="152">
-      <h2 class="modal-name">Nico</h2>
-      <h3 class="modal-title">Managing Editor / Writer</h3>
-      <p>
-        Nico is a 9th grade homeschooled student from Northern California. His passions are theoretical math, number theory, and algebra. Aside from math, Nico enjoys reading classic literature and cooking.
-      </p>
-    </div>
-  </div>
-
-  <div class="staff-modal" id="jessica">
-    <a href="#close" class="modal-backdrop-close" title="Close"></a>
-    <div class="modal-content">
-      <a href="#close" class="modal-close-button" title="Close">&times;</a>
-      <img src="assets/staff_info/Jessica.webp" alt="Jessica" class="modal-photo" decoding="async" width="152" height="152">
-      <h2 class="modal-name">Jessica</h2>
-      <h3 class="modal-title">Writer / Editor</h3>
-      <p>
-        Jessica is a senior at Mission San Jose High School from California. She enjoys participating in collegiate math tournaments, and her favorite subjects are algebra and number theory. In her free time, she likes playing the guitar and taking photos of the sky.
-      </p>
-    </div>
-  </div>
-
-  <div class="staff-modal" id="sophia">
-    <a href="#close" class="modal-backdrop-close" title="Close"></a>
-    <div class="modal-content">
-      <a href="#close" class="modal-close-button" title="Close">&times;</a>
-      <img src="assets/staff_info/person_placeholder.png" alt="Sophia" class="modal-photo" decoding="async" width="152" height="152">
-      <h2 class="modal-name">Sophia</h2>
-      <h3 class="modal-title">Editor-in-Chief / Writer / Public Relations</h3>
-      <p>
-        Sophia likes math and is a core member of the MathEXplained Magazine project.
-      </p>
-    </div>
-  </div>
-
-  <div class="staff-modal" id="michelle">
-    <a href="#close" class="modal-backdrop-close" title="Close"></a>
-    <div class="modal-content">
-      <a href="#close" class="modal-close-button" title="Close">&times;</a>
-      <img src="assets/staff_info/Michelle.webp" alt="Michelle" class="modal-photo" decoding="async" width="152" height="152">
-      <h2 class="modal-name">Michelle</h2>
-      <h3 class="modal-title">Webmaster</h3>
-      <p>
-        Michelle is a student from Westlake High School, Westlake Village. She enjoys computational mathematics and RANS/CFD modeling. In her free time she loves to play tennis and watch F1.
-      </p>
-    </div>
-  </div>
-
-  <div class="staff-modal" id="ritvik">
-    <a href="#close" class="modal-backdrop-close" title="Close"></a>
-    <div class="modal-content">
-      <a href="#close" class="modal-close-button" title="Close">&times;</a>
-      <img src="assets/staff_info/Ritvik.webp" alt="Ritvik" class="modal-photo" decoding="async" width="152" height="152">
-      <h2 class="modal-name">Ritvik</h2>
-      <h3 class="modal-title">Writer</h3>
-      <p>
-        Ritvik is a senior at Delhi Public School, Greater Noida, India. He sometimes does math for fun, especially counting problems. Beyond math, he likes to play basketball, cards and listen to RnB.
-      </p>
-    </div>
-  </div>
-
-  <div class="staff-modal" id="jaelyn">
-    <a href="#close" class="modal-backdrop-close" title="Close"></a>
-    <div class="modal-content">
-      <a href="#close" class="modal-close-button" title="Close">&times;</a>
-      <img src="assets/staff_info/Jaelyn.webp" alt="Jaelyn" class="modal-photo" decoding="async" width="152" height="152">
-      <h2 class="modal-name">Jaelyn</h2>
-      <h3 class="modal-title">Public Relations</h3>
-      <p>
-        Jaelyn is a sophomore at Interlake Senior High School in Washington. Her favorite area of math is number theory, and she enjoys almost every other branch of mathematics—except geometry. In her free time, she likes to play The Legend of Zelda: Breath of the Wild and write on her blog.      
-      </p>
-    </div>
-  </div>
-
-  <div class="staff-modal" id="sohum">
-    <a href="#close" class="modal-backdrop-close" title="Close"></a>
-    <div class="modal-content">
-      <a href="#close" class="modal-close-button" title="Close">&times;</a>
-      <img src="assets/staff_info/Sohum.webp" alt="Sohum" class="modal-photo" decoding="async" width="152" height="152">
-      <h2 class="modal-name">Sohum</h2>
-      <h3 class="modal-title">Writer</h3>
-      <p>
-        "My name is Sohum Uttamchandani and I go to Lynbrook High School. I am currently a senior and I am very interested in math and physics. Outside of that, I enjoy nature, journaling, and hiking."
-      </p>
-    </div>
-  </div>
-
-  <div class="staff-modal" id="reyansh">
-    <a href="#close" class="modal-backdrop-close" title="Close"></a>
-    <div class="modal-content">
-      <a href="#close" class="modal-close-button" title="Close">&times;</a>
-      <img src="assets/staff_info/Reyansh.png" alt="Reyansh" class="modal-photo" decoding="async" width="152" height="152">
-      <h2 class="modal-name">Reyansh</h2>
-      <h3 class="modal-title">Writer</h3>
-      <p>
-        Reyansh is a sophomore at Westside High School who is interested in graph theory and proof-based mathematics. He enjoys understanding how and why problems work. Outside of school, he likes to read and watch anime.
-      </p>
-    </div>
-  </div>
-
-  <div class="staff-modal" id="iris">
-    <a href="#close" class="modal-backdrop-close" title="Close"></a>
-    <div class="modal-content">
-      <a href="#close" class="modal-close-button" title="Close">&times;</a>
-      <img src="assets/staff_info/person_placeholder.png" alt="Iris" class="modal-photo" decoding="async" width="152" height="152">
-      <h2 class="modal-name">Iris</h2>
-      <h3 class="modal-title">Writer</h3>
-      <p>
-        "I'm a rising senior at East Chapel Hill High School in NC. My favorite subjects are math and chemistry. In my free time, I like to play tennis, violin, and piano."
-      </p>
-    </div>
-  </div>
-
-  <div class="staff-modal" id="ranbeer">
-    <a href="#close" class="modal-backdrop-close" title="Close"></a>
-    <div class="modal-content">
-      <a href="#close" class="modal-close-button" title="Close">&times;</a>
-      <img src="assets/staff_info/person_placeholder.png" alt="Ranbeer" class="modal-photo" decoding="async" width="152" height="152">
-      <h2 class="modal-name">Ranbeer</h2>
-      <h3 class="modal-title">Writer / Public Relations</h3>
-      <p>
-        Ranbeer is a sophomore at Newton North High School in Massachusetts. He is most interested in research topics such as enumerative and extremal combinatorics. Outside of math, he enjoys programming, creative writing, and playing badminton.
-      </p>
-    </div>
-  </div>
-
   <div class="staff-modal" id="catherine">
     <a href="#close" class="modal-backdrop-close" title="Close"></a>
     <div class="modal-content">
@@ -416,7 +249,6 @@
       </p>
     </div>
   </div>
-
   <div class="staff-modal" id="david">
     <a href="#close" class="modal-backdrop-close" title="Close"></a>
     <div class="modal-content">
@@ -429,11 +261,167 @@
       </p>
     </div>
   </div>
+  <div class="staff-modal" id="ethan">
+    <a href="#close" class="modal-backdrop-close" title="Close"></a>
+    <div class="modal-content">
+      <a href="#close" class="modal-close-button" title="Close">&times;</a>
+      <img src="assets/staff_info/person_placeholder.png" alt="Ethan" class="modal-photo" decoding="async" width="152" height="152">
+      <h2 class="modal-name">Ethan</h2>
+      <h3 class="modal-title">Writer</h3>
+      <p>
+        Ethan likes math and is a core member of the MathEXplained Magazine project.
+      </p>
+    </div>
+  </div>
+  <div class="staff-modal" id="iris">
+    <a href="#close" class="modal-backdrop-close" title="Close"></a>
+    <div class="modal-content">
+      <a href="#close" class="modal-close-button" title="Close">&times;</a>
+      <img src="assets/staff_info/person_placeholder.png" alt="Iris" class="modal-photo" decoding="async" width="152" height="152">
+      <h2 class="modal-name">Iris</h2>
+      <h3 class="modal-title">Writer</h3>
+      <p>
+        "I'm a rising senior at East Chapel Hill High School in NC. My favorite subjects are math and chemistry. In my free time, I like to play tennis, violin, and piano."
+      </p>
+    </div>
+  </div>
+  <div class="staff-modal" id="jaelyn">
+    <a href="#close" class="modal-backdrop-close" title="Close"></a>
+    <div class="modal-content">
+      <a href="#close" class="modal-close-button" title="Close">&times;</a>
+      <img src="assets/staff_info/Jaelyn.webp" alt="Jaelyn" class="modal-photo" decoding="async" width="152" height="152">
+      <h2 class="modal-name">Jaelyn</h2>
+      <h3 class="modal-title">Public Relations</h3>
+      <p>
+        Jaelyn is a sophomore at Interlake Senior High School in Washington. Her favorite area of math is number theory, and she enjoys almost every other branch of mathematics—except geometry. In her free time, she likes to play The Legend of Zelda: Breath of the Wild and write on her blog.      
+      </p>
+    </div>
+  </div>
+  <div class="staff-modal" id="jessica">
+    <a href="#close" class="modal-backdrop-close" title="Close"></a>
+    <div class="modal-content">
+      <a href="#close" class="modal-close-button" title="Close">&times;</a>
+      <img src="assets/staff_info/Jessica.webp" alt="Jessica" class="modal-photo" decoding="async" width="152" height="152">
+      <h2 class="modal-name">Jessica</h2>
+      <h3 class="modal-title">Editor / Writer</h3>
+      <p>
+        Jessica is a senior at Mission San Jose High School from California. She enjoys participating in collegiate math tournaments, and her favorite subjects are algebra and number theory. In her free time, she likes playing the guitar and taking photos of the sky.
+      </p>
+    </div>
+  </div>
+  <div class="staff-modal" id="kevin-c">
+    <a href="#close" class="modal-backdrop-close" title="Close"></a>
+    <div class="modal-content">
+      <a href="#close" class="modal-close-button" title="Close">&times;</a>
+      <img src="assets/staff_info/Kevin_C.webp" alt="Kevin C." class="modal-photo" decoding="async" width="152" height="152">
+      <h2 class="modal-name">Kevin C.</h2>
+      <h3 class="modal-title">Editor-in-Chief / Writer / Problem Writer</h3>
+      <p>
+        Kevin Chen is a junior at Ridge High School in New Jersey. Kevin's favorite areas of interest in math are computational algebra and geometry. Moreover, he also enjoys playing tennis and making music.
+      </p>
+    </div>
+  </div>
+  <div class="staff-modal" id="margaret">
+    <a href="#close" class="modal-backdrop-close" title="Close"></a>
+    <div class="modal-content">
+      <a href="#close" class="modal-close-button" title="Close">&times;</a>
+      <img src="assets/staff_info/Margaret.webp" alt="Margaret" class="modal-photo" decoding="async" width="152" height="152">
+      <h2 class="modal-name">Margaret</h2>
+      <h3 class="modal-title">Editor</h3>
+      <p>
+        Margaret is a homeschooled student in a charter school who loves all things math—particularly problems with a roundabout visual solution. She's been participating in math competitions since middle school, with her favorite competition being USAMTS due to its proof-based questions and extended timeframe. Other than math, her hobbies include reading, photography, teaching, and getting an endless list of media recommendations while never watching them.
+      </p>
+    </div>
+  </div>
+  <div class="staff-modal" id="michelle">
+    <a href="#close" class="modal-backdrop-close" title="Close"></a>
+    <div class="modal-content">
+      <a href="#close" class="modal-close-button" title="Close">&times;</a>
+      <img src="assets/staff_info/Michelle.webp" alt="Michelle" class="modal-photo" decoding="async" width="152" height="152">
+      <h2 class="modal-name">Michelle</h2>
+      <h3 class="modal-title">Webmaster</h3>
+      <p>
+        Michelle is a student from Westlake High School, Westlake Village. She enjoys computational mathematics and RANS/CFD modeling. In her free time she loves to play tennis and watch F1.
+      </p>
+    </div>
+  </div>
+  <div class="staff-modal" id="nico">
+    <a href="#close" class="modal-backdrop-close" title="Close"></a>
+    <div class="modal-content">
+      <a href="#close" class="modal-close-button" title="Close">&times;</a>
+      <img src="assets/staff_info/Nico.webp" alt="Nico" class="modal-photo" decoding="async" width="152" height="152">
+      <h2 class="modal-name">Nico</h2>
+      <h3 class="modal-title">Managing Editor / Editor / Writer / Problem Writer</h3>
+      <p>
+        Nico is a 9th grade homeschooled student from Northern California. His passions are theoretical math, number theory, and algebra. Aside from math, Nico enjoys reading classic literature and cooking.
+      </p>
+    </div>
+  </div>
+  <div class="staff-modal" id="ranbeer">
+    <a href="#close" class="modal-backdrop-close" title="Close"></a>
+    <div class="modal-content">
+      <a href="#close" class="modal-close-button" title="Close">&times;</a>
+      <img src="assets/staff_info/person_placeholder.png" alt="Ranbeer" class="modal-photo" decoding="async" width="152" height="152">
+      <h2 class="modal-name">Ranbeer</h2>
+      <h3 class="modal-title">Writer / Public Relations</h3>
+      <p>
+        Ranbeer is a sophomore at Newton North High School in Massachusetts. He is most interested in research topics such as enumerative and extremal combinatorics. Outside of math, he enjoys programming, creative writing, and playing badminton.
+      </p>
+    </div>
+  </div>
+  <div class="staff-modal" id="reyansh">
+    <a href="#close" class="modal-backdrop-close" title="Close"></a>
+    <div class="modal-content">
+      <a href="#close" class="modal-close-button" title="Close">&times;</a>
+      <img src="assets/staff_info/Reyansh.png" alt="Reyansh" class="modal-photo" decoding="async" width="152" height="152">
+      <h2 class="modal-name">Reyansh</h2>
+      <h3 class="modal-title">Writer / Problem Writer</h3>
+      <p>
+        Reyansh is a sophomore at Westside High School who is interested in graph theory and proof-based mathematics. He enjoys understanding how and why problems work. Outside of school, he likes to read and watch anime.
+      </p>
+    </div>
+  </div>
+  <div class="staff-modal" id="ritvik">
+    <a href="#close" class="modal-backdrop-close" title="Close"></a>
+    <div class="modal-content">
+      <a href="#close" class="modal-close-button" title="Close">&times;</a>
+      <img src="assets/staff_info/Ritvik.webp" alt="Ritvik" class="modal-photo" decoding="async" width="152" height="152">
+      <h2 class="modal-name">Ritvik</h2>
+      <h3 class="modal-title">Writer / Problem Writer</h3>
+      <p>
+        Ritvik is a senior at Delhi Public School, Greater Noida, India. He sometimes does math for fun, especially counting problems. Beyond math, he likes to play basketball, cards and listen to RnB.
+      </p>
+    </div>
+  </div>
+  <div class="staff-modal" id="sohum">
+    <a href="#close" class="modal-backdrop-close" title="Close"></a>
+    <div class="modal-content">
+      <a href="#close" class="modal-close-button" title="Close">&times;</a>
+      <img src="assets/staff_info/Sohum.webp" alt="Sohum" class="modal-photo" decoding="async" width="152" height="152">
+      <h2 class="modal-name">Sohum</h2>
+      <h3 class="modal-title">Problem Writing Director / Editor / Writer / Problem Writer</h3>
+      <p>
+        "My name is Sohum Uttamchandani and I go to Lynbrook High School. I am currently a senior and I am very interested in math and physics. Outside of that, I enjoy nature, journaling, and hiking."
+      </p>
+    </div>
+  </div>
+  <div class="staff-modal" id="sophia">
+    <a href="#close" class="modal-backdrop-close" title="Close"></a>
+    <div class="modal-content">
+      <a href="#close" class="modal-close-button" title="Close">&times;</a>
+      <img src="assets/staff_info/person_placeholder.png" alt="Sophia" class="modal-photo" decoding="async" width="152" height="152">
+      <h2 class="modal-name">Sophia</h2>
+      <h3 class="modal-title">Editor-in-Chief / Editor / Writer / Public Relations</h3>
+      <p>
+        Sophia likes math and is a core member of the MathEXplained Magazine project.
+      </p>
+    </div>
+  </div>
 
   <footer>
     <div class="footer-top">
       <div class="footer-brand">
-        <img src="assets/logo.webp" width="48" height="48">
+        <img src="assets/logo.webp" alt="" width="48" height="48">
         <div class="site-title">Math<span class="accent">EX</span>plained</div>
         <p class="footer-tagline">A student-run magazine making mathematics readable &mdash;
           one monthly issue at a time.</p>
