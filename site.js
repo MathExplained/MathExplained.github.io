@@ -4,6 +4,23 @@
    ============================================================ */
 (function () {
   'use strict';
+  let darkmode = 0;
+
+  function toggleDark() {
+    darkmode = 1 - darkmode;
+    updateDark();
+    console.log("Dark mode toggled!");
+  }
+
+  function updateDark() {
+    if (darkmode === 1) {
+      document.getElementById("themeStylesheet").href = "./styledark.css";
+    } else {
+      document.getElementById("themeStylesheet").href = "./style.css";
+    }
+  }
+
+  window.toggleDark = toggleDark;
 
   var reduceMotion = window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400..700&display=swap">
-  <link rel="stylesheet" href="./styledark.css">
+  <link id="themeStylesheet" rel="stylesheet" href="./style.css">
   <script src="https://unpkg.com/lucide@1.27.0/dist/umd/lucide.min.js" defer></script>
 
   <!-- Pre-rendered SVG for the decorative background; no MathJax runtime needed. -->
@@ -60,11 +60,8 @@
       </a>
       <a href="https://www.instagram.com/mathexplainedmagazine" target="_blank" rel="noopener" class="navlink">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Follow us on Instagram" class="instagram-icon">
-      <a href="https://www.instagram.com/mathexplainedmagazine"
-        target="_blank"
-        rel="noopener"
-        class="navlink">
-
+      </a>
+      <button onclick="toggleDark()">
         <svg xmlns="http://www.w3.org/2000/svg"
             aria-label="Toggle dark/light mode"
             role="img"
@@ -79,9 +76,7 @@
             class="moon-icon">
           <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/>
         </svg>
-
-      </a>
-      </a>
+      </button>
     </nav>
   </header>
 
