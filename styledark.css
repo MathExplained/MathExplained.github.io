@@ -303,7 +303,7 @@ nav a,
   background: linear-gradient(
     135deg,
     var(--blue-600) 0%,
-    var(--navy-800) 100%
+    var(--blue-500) 100%
   );
 
   color: #fff;

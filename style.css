@@ -273,12 +273,19 @@ nav a, .nav-right a, .nav-links a {
 .nav-cta::after { display: none !important; }
 .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(47, 102, 255, 0.42); }
 
-.discord-icon, .instagram-icon {
+.discord-icon, .instagram-icon, .toggledark-button {
   width: 26px; height: 26px; object-fit: contain; opacity: 0.62;
   transition: transform 0.25s var(--ease), filter 0.25s var(--ease), opacity 0.25s var(--ease);
 }
+
+.toggledark-button {
+  background: rgba(0,0,0,0);
+  border: 0px solid rgba(0,0,0,0);
+}
+
 .discord-icon:hover  { opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 6px #7289da); }
 .instagram-icon:hover{ opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 6px #e1306c); }
+.toggledark-button:hover{ opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 6px #ffcc33); }
 
 .nav-links a, .nav-right .icon-link, .nav-right .navlink {
   display: inline-flex; align-items: center; justify-content: center; height: 34px;
