@@ -1,0 +1,746 @@
+
+/* ============================================================
+   MathEXplained — Dark Mode
+   Inherits layout and animations from style.css.
+   ============================================================ */
+
+@import url("./style.css");
+
+/* ---------- Dark Theme Design Tokens ---------- */
+:root {
+  color-scheme: dark;
+
+  --navy-900: #080f1c;
+  --navy-800: #0e1a2d;
+  --blue-700: #8fb4e2;
+  --blue-600: #a9c5e8;
+  --blue-500: #3f74bb;
+  --blue-300: #8fb4e2;
+
+  --accent: #8fb4ff;
+  --accent-deep: #5b88ff;
+
+  --gold: #e5a747;
+  --gold-soft: #f2d29b;
+
+  --ink: #edf3fc;
+  --ink-soft: #c2cee0;
+  --muted: #899bb5;
+
+  --glass-bg: rgba(20, 35, 57, 0.72);
+  --glass-strong: rgba(20, 35, 57, 0.94);
+
+  --surface: linear-gradient(
+    180deg,
+    rgba(30, 48, 74, 0.94) 0%,
+    rgba(17, 30, 49, 0.96) 100%
+  );
+
+  --surface-hover: linear-gradient(
+    180deg,
+    rgba(40, 62, 94, 0.98) 0%,
+    rgba(24, 41, 65, 0.98) 100%
+  );
+
+  --hairline: rgba(164, 190, 226, 0.16);
+  --rule: rgba(143, 180, 226, 0.18);
+
+  --shadow: rgba(0, 0, 0, 0.35);
+  --shadow-strong: rgba(0, 0, 0, 0.55);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.48);
+}
+
+/* ---------- Base ---------- */
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  color: var(--ink);
+
+  background-color: var(--navy-900);
+
+  background-image:
+    radial-gradient(
+      60rem 32rem at 12% -8%,
+      rgba(63, 116, 187, 0.22),
+      transparent 60%
+    ),
+    radial-gradient(
+      48rem 30rem at 92% 4%,
+      rgba(91, 136, 255, 0.13),
+      transparent 62%
+    ),
+    radial-gradient(
+      52rem 34rem at 50% 108%,
+      rgba(32, 61, 99, 0.35),
+      transparent 62%
+    ),
+    linear-gradient(
+      180deg,
+      var(--navy-800) 0%,
+      var(--navy-900) 55%,
+      #070d18 100%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(143, 180, 226, 0.035) 0px,
+      rgba(143, 180, 226, 0.035) 1px,
+      transparent 1px,
+      transparent 32px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(143, 180, 226, 0.035) 0px,
+      rgba(143, 180, 226, 0.035) 1px,
+      transparent 1px,
+      transparent 32px
+    );
+}
+
+::selection {
+  background: rgba(91, 136, 255, 0.35);
+  color: #fff;
+}
+
+/* ---------- Typography ---------- */
+
+h1,
+h2,
+h3,
+body > h2,
+.hero-stats dt {
+  color: var(--ink);
+}
+
+a {
+  color: var(--accent);
+}
+
+figure figcaption {
+  color: var(--muted);
+}
+
+.section-head .section-note {
+  color: var(--muted);
+}
+
+/* ---------- Skip Link ---------- */
+
+.skip-link {
+  background: var(--blue-600);
+  color: #fff;
+}
+
+/* ---------- Announcement Banner ---------- */
+
+.announcement-banner {
+  background: linear-gradient(
+    90deg,
+    var(--blue-600) 0%,
+    var(--blue-500) 50%,
+    var(--blue-600) 100%
+  );
+
+  color: var(--ink);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+.announcement-banner a {
+  color: var(--gold-soft);
+  border-color: rgba(242, 210, 155, 0.45);
+}
+
+.announcement-banner a:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+.banner-close {
+  color: var(--ink-soft);
+}
+
+.banner-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* ---------- Floating Math Background ---------- */
+
+.math-symbol {
+  color: rgb(143, 180, 226);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.math-symbol svg path,
+.math-symbol svg rect {
+  stroke: rgb(63, 116, 187);
+}
+
+/* ---------- Header ---------- */
+
+header,
+.headerbar {
+  background: linear-gradient(
+    180deg,
+    rgba(14, 26, 45, 0.88) 0%,
+    rgba(8, 15, 28, 0.82) 100%
+  );
+
+  border-bottom: 1px solid var(--hairline);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+}
+
+.headerbar.is-scrolled {
+  background: linear-gradient(
+    180deg,
+    rgba(14, 26, 45, 0.97) 0%,
+    rgba(8, 15, 28, 0.94) 100%
+  );
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.site-title {
+  color: var(--ink);
+}
+
+.site-title .accent {
+  color: var(--accent);
+}
+
+nav a,
+.nav-right a,
+.nav-links a {
+  color: var(--ink-soft);
+}
+
+.nav-right a:hover,
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+.nav-right a.is-active {
+  color: var(--ink);
+}
+
+.nav-right a.is-active::after {
+  background: var(--accent);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn-primary {
+  background: linear-gradient(
+    135deg,
+    var(--accent-deep) 0%,
+    var(--blue-600) 100%
+  );
+
+  color: #fff;
+}
+
+.btn-ghost {
+  background: rgba(30, 48, 74, 0.8);
+  color: var(--ink);
+  border-color: var(--hairline);
+}
+
+.btn-ghost:hover {
+  background: var(--blue-700);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ---------- Hero ---------- */
+
+.hero-title {
+  color: var(--ink);
+}
+
+.hero-title em {
+  background: linear-gradient(
+    115deg,
+    #8fb4ff 0%,
+    #a99aff 55%,
+    var(--gold-soft) 115%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.hero-sub {
+  color: var(--ink-soft);
+}
+
+.hero-stats dt {
+  color: var(--ink);
+}
+
+.hero-stats dd {
+  color: var(--muted);
+}
+
+/* ---------- Archive Toolbar ---------- */
+
+.filter-pill {
+  color: var(--ink-soft);
+  background: rgba(30, 48, 74, 0.72);
+  border-color: var(--hairline);
+}
+
+.filter-pill:hover {
+  background: var(--blue-600);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.filter-pill.is-active {
+  background: linear-gradient(
+    135deg,
+    var(--blue-600) 0%,
+    var(--blue-500) 100%
+  );
+
+  color: #fff;
+}
+
+.archive-search input {
+  background: rgba(20, 35, 57, 0.8);
+  color: var(--ink);
+  border-color: var(--hairline);
+}
+
+.archive-search input::placeholder {
+  color: var(--muted);
+}
+
+.archive-search input:focus {
+  background: rgba(30, 48, 74, 0.95);
+  border-color: var(--accent);
+}
+
+.archive-count {
+  color: var(--muted);
+}
+
+.archive-empty {
+  color: var(--muted);
+}
+
+.archive-empty strong {
+  color: var(--ink);
+}
+
+/* ---------- Legacy Year Filter ---------- */
+
+.year-filter select {
+  color: var(--ink);
+  background: var(--glass-bg);
+  border-color: var(--hairline);
+}
+
+/* ---------- Containers ---------- */
+
+.container {
+  background: var(--surface);
+  border-color: var(--hairline);
+  box-shadow: var(--shadow-md);
+}
+
+main.container p {
+  color: var(--ink-soft);
+}
+
+.lead {
+  color: var(--ink) !important;
+}
+
+.pullquote {
+  background: linear-gradient(
+    90deg,
+    rgba(229, 167, 71, 0.14),
+    rgba(20, 35, 57, 0)
+  );
+
+  color: var(--ink);
+  border-left-color: var(--gold);
+}
+
+.back-link {
+  color: var(--ink);
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+/* ---------- Info Cards ---------- */
+
+.info-card {
+  background: rgba(20, 35, 57, 0.78);
+  border-color: var(--hairline);
+  box-shadow: var(--shadow-sm);
+}
+
+.info-card .info-icon {
+  background: linear-gradient(
+    145deg,
+    rgba(91, 136, 255, 0.22),
+    rgba(91, 136, 255, 0.08)
+  );
+
+  border-color: rgba(91, 136, 255, 0.25);
+}
+
+.info-card h3 {
+  color: var(--ink);
+}
+
+.info-card p {
+  color: var(--ink-soft) !important;
+}
+
+/* ---------- Release Cards ---------- */
+
+.release-card {
+  background: var(--surface);
+  border-color: var(--hairline);
+  box-shadow: var(--shadow-md);
+}
+
+.release-card:hover {
+  background: var(--surface-hover);
+  border-color: rgba(143, 180, 255, 0.3);
+}
+
+.release-card .releasetitle {
+  color: var(--ink);
+}
+
+.release-card:hover .releasetitle {
+  color: var(--accent);
+}
+
+.release-card .releasedescription {
+  color: var(--ink-soft);
+}
+
+.release-card img {
+  background: var(--navy-800);
+  box-shadow: var(--shadow-md);
+}
+
+.release-card:hover img {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Exclusive cards already have their own dark styling.
+   Preserve their galaxy artwork and white typography. */
+
+.release-card.exclusive-card {
+  background: rgba(8, 10, 16, 0.82);
+  border-color: rgba(166, 182, 255, 0.22);
+}
+
+.release-card.exclusive-card .release-link {
+  color: #f5f7ff;
+}
+
+/* ---------- Apply Page ---------- */
+
+.form-wrapper iframe,
+.apply-page .form-wrapper iframe {
+  background: var(--navy-800);
+  border: 1px solid var(--hairline);
+}
+
+/* ---------- Crossword ---------- */
+
+.crossword-select {
+  color: var(--ink);
+  background: var(--glass-bg);
+  border-color: var(--hairline);
+}
+
+.crossword-select option,
+.cw-select-wrap select option,
+#problemSelect option {
+  color: var(--ink);
+  background: var(--navy-800);
+}
+
+.grid {
+  border-color: var(--blue-700);
+}
+
+.cell {
+  background: var(--blue-700);
+}
+
+.cell:focus-within {
+  background: var(--blue-600);
+}
+
+.cell-number {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.cell input {
+  color: #fff;
+}
+
+.grid .cell {
+  border-color: rgba(143, 180, 226, 0.3);
+}
+
+.submit-btn {
+  background: var(--blue-600);
+  color: #fff;
+}
+
+.submit-btn:hover {
+  background: var(--accent-deep);
+}
+
+.feedback,
+.crossword-page .status {
+  color: var(--ink);
+}
+
+.solution-box {
+  background: var(--glass-bg);
+  border-color: var(--hairline);
+}
+
+/* ---------- Staff ---------- */
+
+main.staff-intro p {
+  color: var(--ink-soft);
+}
+
+body > h2 {
+  color: var(--ink);
+}
+
+.staff-count {
+  color: var(--muted);
+}
+
+.staff-card {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--hairline);
+}
+
+.staff-card:hover {
+  background: var(--surface-hover);
+  border-color: rgba(143, 180, 255, 0.3);
+}
+
+.staff-name {
+  color: var(--ink);
+}
+
+.staff-position p {
+  color: var(--ink-soft);
+}
+
+.staff-position p:first-child {
+  color: var(--accent);
+}
+
+.staff-photo {
+  border-color: var(--blue-600);
+  box-shadow: var(--shadow-md);
+}
+
+/* ---------- Staff Modals ---------- */
+
+.staff-modal {
+  background: rgba(4, 10, 20, 0.76);
+}
+
+.modal-content {
+  background: linear-gradient(
+    180deg,
+    rgba(30, 48, 74, 0.99) 0%,
+    rgba(14, 26, 45, 0.99) 100%
+  );
+
+  border-color: var(--hairline);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+}
+
+.modal-close-button {
+  color: var(--ink-soft);
+}
+
+.modal-close-button:hover {
+  background: rgba(91, 136, 255, 0.18);
+  color: var(--accent);
+}
+
+.modal-photo {
+  border-color: var(--blue-600);
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-name {
+  color: var(--ink);
+}
+
+.modal-title {
+  color: var(--accent);
+}
+
+.modal-content p {
+  color: var(--ink-soft);
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+  background: var(--surface);
+  border-color: var(--hairline);
+}
+
+.footer-top {
+  border-bottom-color: var(--rule);
+}
+
+.footer-tagline {
+  color: var(--muted);
+}
+
+.footer-col h4 {
+  color: var(--muted);
+}
+
+.footer-col a {
+  color: var(--ink-soft);
+}
+
+.footer-col a:hover {
+  color: var(--accent);
+}
+
+footer p {
+  color: var(--muted);
+}
+
+/* ---------- Crossword PDF Layout ---------- */
+
+.cw-select-wrap select,
+#problemSelect {
+  background: rgba(20, 35, 57, 0.85);
+  border-color: var(--hairline);
+  color: var(--ink);
+}
+
+#problemSelect:focus {
+  border-color: var(--accent);
+}
+
+.cw-btn-check {
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-deep) 100%
+  );
+
+  color: #fff;
+}
+
+.cw-btn-check:hover {
+  background: linear-gradient(
+    135deg,
+    var(--accent-deep) 0%,
+    var(--blue-600) 100%
+  );
+}
+
+.cw-btn-clear {
+  background: rgba(30, 48, 74, 0.85);
+  color: var(--ink);
+  border-color: var(--hairline);
+}
+
+.cw-btn-clear:hover {
+  background: var(--blue-600);
+}
+
+.cw-btn-giveup {
+  background: #c0392b;
+  color: #fff;
+}
+
+.cw-btn-giveup:hover {
+  background: #a93226;
+}
+
+.cw-pdf-label {
+  color: var(--muted);
+}
+
+.cw-pdf-iframe {
+  background: var(--navy-800);
+  border-color: var(--hairline);
+}
+
+/* ---------- Form Controls ---------- */
+
+input,
+textarea,
+select {
+  color-scheme: dark;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+}
+
+/* ---------- Responsive / Miscellaneous ---------- */
+
+@media (max-width: 600px) {
+  .container {
+    background: var(--surface);
+  }
+}
+
+/* ---------- Print ---------- */
+
+@media print {
+  :root {
+    color-scheme: light;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+}
+
+/* ---------- Exclusive Filter Button ---------- */
+
+.filter-pill[data-exclusive="only"] {
+  background: var(--gold) !important;
+  color: var(--navy-900) !important;
+  border-color: var(--gold) !important;
+}
+
+.filter-pill[data-exclusive="only"]:hover {
+  background: var(--gold-soft) !important;
+  color: var(--navy-900) !important;
+}
+
+.filter-pill[data-exclusive="only"].is-active {
+  background: var(--gold) !important;
+  color: var(--navy-900) !important;
+  border-color: var(--gold) !important;
+}
