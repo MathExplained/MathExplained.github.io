@@ -281,6 +281,8 @@ nav a, .nav-right a, .nav-links a {
 .toggledark-button {
   background: rgba(0,0,0,0);
   border: 0px solid rgba(0,0,0,0);
+  width: 24px; height: 24px;
+  margin-left: -6px;
 }
 
 .discord-icon:hover  { opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 6px #7289da); }
