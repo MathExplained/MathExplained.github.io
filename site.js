@@ -4,11 +4,12 @@
    ============================================================ */
 (function () {
   'use strict';
-  let darkmode = 0;
+  let darkmode = localStorage.getItem('darkmode') === '1' ? 1 : 0;
 
   function toggleDark() {
     darkmode = 1 - darkmode;
     updateDark();
+    localStorage.setItem('darkmode', darkmode);
     console.log("Dark mode toggled!");
   }
 
@@ -19,6 +20,8 @@
       document.getElementById("themeStylesheet").href = "./style.css";
     }
   }
+
+  updateDark();
 
   window.toggleDark = toggleDark;
 
