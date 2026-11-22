@@ -5,6 +5,8 @@
 (function () {
   'use strict';
   let darkmode = localStorage.getItem('darkmode') === '1' ? 1 : 0;
+  const discordIcon = document.querySelector(".discord-icon");
+  const instagramIcon = document.querySelector(".instagram-icon");
 
   function toggleDark() {
     darkmode = 1 - darkmode;
@@ -19,6 +21,21 @@
     } else {
       document.getElementById("themeStylesheet").href = "./style.css";
     }
+    updateDiscordIcon();
+    updateInstagramIcon();
+  }
+
+  function updateDiscordIcon() {
+    if (!discordIcon) return;
+    const isDarkMode = darkmode === 1;
+    discordIcon.style.filter = isDarkMode ? "invert(1)" : "none";
+  }
+
+  function updateInstagramIcon() {
+    if (!instagramIcon) return;
+
+    const isDarkMode = darkmode === 1;
+    instagramIcon.style.filter = isDarkMode ? "invert(1)" : "none";
   }
 
   updateDark();
